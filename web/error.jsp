@@ -4,6 +4,6 @@
 <fmt:setLocale value="${sessionScope.idioma}"/>
 <fmt:setBundle basename="recursos.mensajes"/>
 <div class="contenedor">
-    <h1 class="titleIndex"><fmt:message key="index.titulo"/></h1>
+    <center><p class="error"><fmt:message key="error.generico"/></p></center>
 </div>
 <jsp:include page="jsp/plantillaInferior.jsp"/>
