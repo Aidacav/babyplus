@@ -6,4 +6,4 @@
 <div class="contenedor">
     <center><p class="error"><fmt:message key="error.generico"/></p></center>
 </div>
-<jsp:include page="jsp/plantillaInferior.jsp"/>
+<jsp:include page="/babyplus/jsp/plantillaInferior.jsp"/>
