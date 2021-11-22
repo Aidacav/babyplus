@@ -8,7 +8,6 @@ package modelo.entidades;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,12 +17,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -58,10 +57,11 @@ public class Usuario implements Serializable {
     @NotNull
     @Column(name = "ACTIVO")
     private boolean activo;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario1")
-    private Cliente cliente;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario1")
-    private Proveedor proveedor;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2)
+    @Column(name = "IDIOMA")
+    private String idioma;
     @JoinColumn(name = "ROL", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Rol rol;
@@ -73,12 +73,13 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    public Usuario(Integer id, String usuario, String password, Date fechaAlta, boolean activo) {
+    public Usuario(Integer id, String usuario, String password, Date fechaAlta, boolean activo, String idioma) {
         this.id = id;
         this.usuario = usuario;
         this.password = password;
         this.fechaAlta = fechaAlta;
         this.activo = activo;
+        this.idioma = idioma;
     }
 
     public Integer getId() {
@@ -121,20 +122,12 @@ public class Usuario implements Serializable {
         this.activo = activo;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public String getIdioma() {
+        return idioma;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public Proveedor getProveedor() {
-        return proveedor;
-    }
-
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
+    public void setIdioma(String idioma) {
+        this.idioma = idioma;
     }
 
     public Rol getRol() {

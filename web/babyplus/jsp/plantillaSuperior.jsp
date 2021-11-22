@@ -1,5 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <fmt:setLocale value="${sessionScope.idioma}"/>
 <fmt:setBundle basename="recursos.mensajes"/>
@@ -17,24 +18,30 @@
 
         <div class="topnav">
             <div class="izquierda">
-                <c:choose>
-                    <c:when test="${sessionScope.login == null}">
-                        <a href="${pageContext.request.contextPath}/index.jsp"><fmt:message key="index.nav.index"/></a>
-                        <a href="${pageContext.request.contextPath}/babyplus/jsp/paginaLogin.jsp"><fmt:message key="index.nav.login"/></a>
-                    </c:when>    
-                    <c:otherwise>
-                        <a href="${pageContext.request.contextPath}/babyplus/jsp/privado/principal.jsp"><fmt:message key="index.nav.principal"/></a>
-                        <a href="${pageContext.request.contextPath}/logout"><fmt:message key="index.nav.salir"/></a>
-                    </c:otherwise>
-                </c:choose>
+                <c:if test="${sessionScope.usuario != null && sessionScope.usuario.rol != null}">
+                    <a href="${pageContext.request.contextPath}/babyplus/jsp/privado/${fn:toLowerCase(sessionScope.usuario.rol.descripcion)}/principal.jsp"><fmt:message key="index.nav.principal"/></a>
+                    <c:choose>
+                        <c:when test="${sessionScope.usuario.rol.descripcion == 'ADMIN'}">
+                            
+                            <a href="${pageContext.request.contextPath}/babyplus/jsp/privado/admin/clientes.jsp"><fmt:message key="index.nav.admin.clientes"/></a>
+                            <a href="${pageContext.request.contextPath}/babyplus/jsp/privado/admin/proveedores.jsp"><fmt:message key="index.nav.admin.proveedores"/></a>
+                        </c:when>
+                        <c:when test="${sessionScope.usuario.rol.descripcion == 'PROVEEDOR'}">
+                        </c:when>
+                        <c:otherwise>
+                        </c:otherwise>
+                    </c:choose>
+                </c:if>
             </div>        
             <div class="derecha">
-                <a href="${pageContext.request.contextPath}/cambioLenguaje?idioma=es&origen=${pageContext.request.requestURI}">
-                    <img class="bandera" src="${pageContext.request.contextPath}/babyplus/imagenes/ES.png">
-                </a>
-                <a href="${pageContext.request.contextPath}/cambioLenguaje?idioma=en&origen=${pageContext.request.requestURI}">
-                    <img class="bandera" src="${pageContext.request.contextPath}/babyplus/imagenes/EN.png">
-                </a>
+                <c:choose>
+                    <c:when test="${sessionScope.usuario != null}">
+                        <a href="${pageContext.request.contextPath}/logout"><fmt:message key="index.nav.logout"/></a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${pageContext.request.contextPath}/babyplus/jsp/paginaLogin.jsp"><fmt:message key="index.nav.login"/></a>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>
