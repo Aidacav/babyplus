@@ -7,6 +7,7 @@ package servicio;
 
 
 import java.util.List;
+import modelo.ActualizacionClientes;
 import modelo.BusquedaClientes;
 import modelo.dao.ClienteDAO;
 import modelo.dao.UsuarioDAO;
@@ -21,7 +22,6 @@ import org.apache.tomcat.util.codec.binary.StringUtils;
 public class ServicioClientes {
     
     private final ClienteDAO clienteDAO = new ClienteDAO();
-    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
     
     public Cliente buscarPorid(Integer idCliente) {
         
@@ -41,8 +41,7 @@ public class ServicioClientes {
         return clienteDAO.buscarPorCriterios(criterios);
     }
 
-    public void cambiarEstado(Usuario usuarioAModificar) {
-        usuarioAModificar.setActivo(!usuarioAModificar.getActivo());
-        usuarioDAO.actualizar(usuarioAModificar);
+    public Cliente actualizarClienteAdmin(ActualizacionClientes nuevosValores) {
+        return clienteDAO.actualizarValoresComoAdmin(nuevosValores);
     }
 }

@@ -64,6 +64,7 @@ public class Cliente implements Serializable {
     private String localidad;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 10000, max = 99999)
     @Column(name = "CP")
     private int cp;
     @JoinColumn(name = "USUARIO", referencedColumnName = "ID", insertable = false, updatable = false)

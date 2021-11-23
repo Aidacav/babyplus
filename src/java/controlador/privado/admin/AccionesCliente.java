@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.ActualizacionClientes;
 import modelo.BusquedaClientes;
 import modelo.entidades.Cliente;
 import servicio.ServicioClientes;
+import servicio.ServicioUsuarios;
 import util.Parseador;
 
 /**
@@ -23,11 +25,13 @@ import util.Parseador;
 public class AccionesCliente extends HttpServlet {
 
     private ServicioClientes servicioClientes;
+    private ServicioUsuarios servicioUsuarios;
     
     @Override
     public void init() throws ServletException {
         super.init();
         servicioClientes = new ServicioClientes();
+        servicioUsuarios = new ServicioUsuarios();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -45,12 +49,15 @@ public class AccionesCliente extends HttpServlet {
         
         boolean esCambioEstado = request.getParameter("cambiarEstado") != null;
         boolean esVerDetalle = request.getParameter("verDetalle") != null;
+        boolean esActualizacion = request.getParameter("actualizar") != null;
         
         if (esCambioEstado) {
             cambiaEstado(request, response);
         } else if (esVerDetalle) {
-            //cargarDetalle(request, response);
-        } else {
+            cargarDetalle(request, response);
+        } else if (esActualizacion) {
+            actualizarDatosCliente(request, response);
+        }else {
             devolverNoDisponible(request, response);
         }
     }
@@ -63,7 +70,7 @@ public class AccionesCliente extends HttpServlet {
         try {
             Cliente clienteAModificar = servicioClientes.buscarPorid(criterios.getId());
             if (clienteAModificar != null) {
-                servicioClientes.cambiarEstado(clienteAModificar.getUsuario1());
+                servicioUsuarios.cambiarEstado(criterios.getId());
                 session.setAttribute("mensaje", "administrador.gestion.clientes.accion.cambio.estado.ok");
                 session.removeAttribute("clientes");
             } else {
@@ -74,6 +81,47 @@ public class AccionesCliente extends HttpServlet {
         }
         
         response.sendRedirect(criterios.getOrigen());
+    }
+    
+    private void cargarDetalle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        BusquedaClientes criterios = Parseador.aBusquedaClientes(request);
+
+        try {
+            Cliente cliente = servicioClientes.buscarPorid(criterios.getId());
+            if (cliente != null) {
+                session.removeAttribute("clientes");
+                session.setAttribute("cliente", cliente);
+                response.sendRedirect(request.getContextPath() + "/babyplus/jsp/privado/admin/detalleCliente.jsp");
+            } else {
+                throw new Exception("Forzando salida");
+            }
+        } catch (Exception e) {
+            session.setAttribute("error", "administrador.gestion.clientes.accion.detalles.ko");
+            response.sendRedirect(criterios.getOrigen());
+        }
+    }
+    
+    private void actualizarDatosCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        ActualizacionClientes nuevosValores = Parseador.aActualizacionClientes(request);
+
+        try {
+            Cliente clienteAModificar = servicioClientes.buscarPorid(nuevosValores.getId());
+            if (clienteAModificar != null) {
+                Cliente clienteModificado = servicioClientes.actualizarClienteAdmin(nuevosValores);
+                session.setAttribute("mensaje", "administrador.gestion.clientes.accion.actualizar.ok");
+                session.setAttribute("cliente", clienteModificado);
+            } else {
+                session.setAttribute("error", "administrador.gestion.clientes.accion.actualizar.ko");
+            }
+        } catch (Exception e) {
+            session.setAttribute("error", "administrador.gestion.clientes.accion.actualizar.ko");
+        }
+        
+        response.sendRedirect(nuevosValores.getOrigen());
     }
     
     private void devolverNoDisponible(HttpServletRequest request, HttpServletResponse response) throws IOException {

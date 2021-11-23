@@ -16,6 +16,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import modelo.ActualizacionClientes;
 import modelo.BusquedaClientes;
 import modelo.entidades.Cliente;
 import modelo.entidades.Usuario;
@@ -77,5 +78,28 @@ public class ClienteDAO implements Serializable {
         } finally {
             em.close();
         }
+    }
+
+    public Cliente actualizarValoresComoAdmin(ActualizacionClientes nuevosValores) {
+        EntityManager em = getEntityManager();
+        try {
+            Cliente clienteGuardado = em.find(Cliente.class, nuevosValores.getId());
+            if (clienteGuardado != null) {
+                em.getTransaction().begin();
+                clienteGuardado.setNombre(nuevosValores.getNombre());
+                clienteGuardado.setApellidos(nuevosValores.getApellidos());
+                clienteGuardado.setFechaNacimiento(nuevosValores.getFechaNacimiento());
+                clienteGuardado.setDomicilio(nuevosValores.getDomicilio());
+                clienteGuardado.setLocalidad(nuevosValores.getLocalidad());
+                clienteGuardado.setCp(nuevosValores.getCp());
+                clienteGuardado.getUsuario1().setPassword(nuevosValores.getPassword());
+                em.getTransaction().commit();
+                return clienteGuardado;
+            }
+        } finally {
+            em.close();
+        }
+
+        return null;
     }
 }

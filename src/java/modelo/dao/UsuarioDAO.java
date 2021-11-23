@@ -45,14 +45,13 @@ public class UsuarioDAO implements Serializable {
         }
     }
 
-    public Usuario actualizar(Usuario usuarioAModificar) {
+    public Usuario cambiarEstado(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            Usuario usuarioGuardado = em.find(Usuario.class, usuarioAModificar.getId());
+            Usuario usuarioGuardado = em.find(Usuario.class, id);
             if (usuarioGuardado != null) {
                 em.getTransaction().begin();
-                usuarioGuardado.setActivo(usuarioAModificar.getActivo());
-                usuarioGuardado.setIdioma(usuarioAModificar.getIdioma());
+                usuarioGuardado.setActivo(!usuarioGuardado.getActivo());
                 em.getTransaction().commit();
                 return usuarioGuardado;
             }
@@ -62,5 +61,4 @@ public class UsuarioDAO implements Serializable {
 
         return null;
     }
-    
 }

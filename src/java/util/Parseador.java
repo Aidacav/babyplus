@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
+import modelo.ActualizacionClientes;
 import modelo.BusquedaClientes;
 
 /**
@@ -28,6 +29,19 @@ public final class Parseador {
                 request.getParameter("apellidosCliente"),
                 request.getParameter("fechaCliente"),
                 request.getParameter("estadoCliente"),
+                request.getParameter("origen"));
+    }
+    
+    public static ActualizacionClientes aActualizacionClientes(HttpServletRequest request) {
+        return new ActualizacionClientes(
+                request.getParameter("idCliente"),
+                request.getParameter("passwordCliente"),
+                request.getParameter("nombreCliente"),
+                request.getParameter("apellidosCliente"),
+                request.getParameter("fechaCliente"),
+                request.getParameter("domicilioCliente"),
+                request.getParameter("localidadCliente"),
+                request.getParameter("cpCliente"),
                 request.getParameter("origen"));
     }
     
