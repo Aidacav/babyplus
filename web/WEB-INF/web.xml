@@ -26,11 +26,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BuscarClientes</servlet-name>
-        <url-pattern>/privado/admin/buscarClientes</url-pattern>
+        <url-pattern>/babyplus/jsp/privado/admin/buscarClientes</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AccionesCliente</servlet-name>
-        <url-pattern>/privado/admin/accionesCliente</url-pattern>
+        <url-pattern>/babyplus/jsp/privado/admin/accionesCliente</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

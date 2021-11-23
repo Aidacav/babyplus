@@ -3,7 +3,7 @@
 <fmt:setBundle basename="recursos.mensajes"/>
 <p>
     <center>
-        <form method="get" action="${pageContext.request.contextPath}/privado/admin/buscarClientes">
+        <form method="get" action="${pageContext.request.contextPath}/babyplus/jsp/privado/admin/buscarClientes">
             <label for="usuarioCliente"><fmt:message key="buscador.clientes.nombre.usuario"/></label>
             <input type="text" id="usuarioCliente" name="usuarioCliente">
             <label for="nombreCliente"><fmt:message key="buscador.clientes.nombre"/></label>
