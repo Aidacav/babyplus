@@ -4,6 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>modelo.entidades.Usuario</class>
     <class>modelo.entidades.Rol</class>
+    <class>modelo.entidades.Cliente</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/babyplus?zeroDateTimeBehavior=convertToNull"/>

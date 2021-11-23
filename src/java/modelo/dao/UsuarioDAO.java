@@ -44,5 +44,23 @@ public class UsuarioDAO implements Serializable {
             em.close();
         }
     }
+
+    public Usuario actualizar(Usuario usuarioAModificar) {
+        EntityManager em = getEntityManager();
+        try {
+            Usuario usuarioGuardado = em.find(Usuario.class, usuarioAModificar.getId());
+            if (usuarioGuardado != null) {
+                em.getTransaction().begin();
+                usuarioGuardado.setActivo(usuarioAModificar.getActivo());
+                usuarioGuardado.setIdioma(usuarioAModificar.getIdioma());
+                em.getTransaction().commit();
+                return usuarioGuardado;
+            }
+        } finally {
+            em.close();
+        }
+
+        return null;
+    }
     
 }

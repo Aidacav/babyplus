@@ -4,16 +4,20 @@
 <fmt:setBundle basename="recursos.mensajes"/>
 <p>
     <c:if test="${!empty error}">
-        <p class="error" name="error">
-            <fmt:message><c:out value="${error}"/></fmt:message>
-            <% session.removeAttribute("error"); %>
-        </p>
+        <center>
+            <p class="error" name="error">
+                <fmt:message><c:out value="${error}"/></fmt:message>
+                <% session.removeAttribute("error"); %>
+            </p>
+        </center>
     </c:if>
     
     <c:if test="${!empty mensaje}">
-        <p class="mensaje" name="mensaje">
-            <fmt:message><c:out value="${mensaje}"/></fmt:message>
-            <% session.removeAttribute("mensaje"); %>
-        </p>
+        <center>
+            <p class="mensaje" name="mensaje">
+                <fmt:message><c:out value="${mensaje}"/></fmt:message>
+                <% session.removeAttribute("mensaje"); %>
+            </p>
+        </center>
     </c:if>
 </p>

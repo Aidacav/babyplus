@@ -14,7 +14,7 @@ import modelo.entidades.Usuario;
  */
 public class ServicioLogin {
     
-    private UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     public Usuario comprobarUsuario(String login, String password) {
         
