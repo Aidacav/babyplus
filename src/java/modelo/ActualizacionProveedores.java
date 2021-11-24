@@ -5,7 +5,6 @@
  */
 package modelo;
 
-import java.util.Date;
 import util.Parseador;
 
 /**

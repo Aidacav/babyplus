@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modelo.entidades.Usuario;
 import servicio.ServicioLogin;
-import servicio.TipoUsuario;
 
 /**
  *

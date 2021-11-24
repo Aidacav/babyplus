@@ -10,10 +10,7 @@ import java.util.List;
 import modelo.ActualizacionClientes;
 import modelo.BusquedaClientes;
 import modelo.dao.ClienteDAO;
-import modelo.dao.UsuarioDAO;
 import modelo.entidades.Cliente;
-import modelo.entidades.Usuario;
-import org.apache.tomcat.util.codec.binary.StringUtils;
 
 /**
  *

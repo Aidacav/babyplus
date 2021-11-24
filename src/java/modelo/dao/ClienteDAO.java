@@ -19,7 +19,6 @@ import javax.persistence.criteria.Root;
 import modelo.ActualizacionClientes;
 import modelo.BusquedaClientes;
 import modelo.entidades.Cliente;
-import modelo.entidades.Usuario;
 
 /**
  *

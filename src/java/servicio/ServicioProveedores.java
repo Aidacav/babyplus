@@ -7,17 +7,10 @@ package servicio;
 
 
 import java.util.List;
-import modelo.ActualizacionClientes;
 import modelo.ActualizacionProveedores;
-import modelo.BusquedaClientes;
 import modelo.BusquedaProveedores;
-import modelo.dao.ClienteDAO;
 import modelo.dao.ProveedorDAO;
-import modelo.dao.UsuarioDAO;
-import modelo.entidades.Cliente;
 import modelo.entidades.Proveedor;
-import modelo.entidades.Usuario;
-import org.apache.tomcat.util.codec.binary.StringUtils;
 
 /**
  *
