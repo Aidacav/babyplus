@@ -4,7 +4,68 @@
 <fmt:setLocale value="${sessionScope.idioma}"/>
 <fmt:setBundle basename="recursos.mensajes"/>
 <div class="contenedor">
-    <h1>ADMIN Proveedores</h1>
+    <jsp:include page="${pageContext.request.contextPath}/jsp/privado/admin/buscadorProveedores.jsp"/>
+    <br>
+    <c:if test="${!empty sessionScope.proveedores}">
+        <c:set var = "formatoFecha" scope = "session">
+            <fmt:message key="configuracion.formato.fecha"/>
+        </c:set>
+        <p>
+            <table>
+                <tr>
+                    <th><fmt:message key="administrador.gestion.proveedores.cabecera.id"/></th>
+                    <th><fmt:message key="administrador.gestion.proveedores.cabecera.usuario"/></th>
+                    <th><fmt:message key="administrador.gestion.proveedores.cabecera.razon"/></th>
+                    <th><fmt:message key="administrador.gestion.proveedores.cabecera.cif"/></th>
+                    <th><fmt:message key="administrador.gestion.proveedores.cabecera.fecha.registro"/></th>
+                    <th><fmt:message key="administrador.gestion.proveedores.cabecera.activo"/></th>
+                    <th><fmt:message key="administrador.gestion.proveedores.cabecera.acciones"/></th>
+                </tr>
+                <c:forEach var="proveedor" items="${sessionScope.proveedores}">
+                    <tr>
+                        <td>${proveedor.usuario1.id}</td>
+                        <td>${proveedor.usuario1.usuario}</td>
+                        <td>${proveedor.razonSocial}</td>
+                        <td>${proveedor.cif}</td>
+                        <td>
+                            <fmt:formatDate pattern="${formatoFecha}" type="DATE" value="${proveedor.usuario1.fechaAlta}"/>
+                        </td>
+                        <td>
+                            <center>
+                                <c:choose>
+                                    <c:when test="${proveedor.usuario1.activo == true}">
+                                        <img class="icono" src="${pageContext.request.contextPath}/babyplus/imagenes/ok.png">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img class="icono" src="${pageContext.request.contextPath}/babyplus/imagenes/ko.png">
+                                    </c:otherwise>
+                                </c:choose>
+                            </center>
+                        </td>
+                        <td>
+                            <div>
+                                <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/admin/accionesProveedor">
+                                    <input type="hidden" id="idCliente" name="idCliente" value="${proveedor.usuario}">
+                                    <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
+                                    <input type="submit" name="verDetalle" value="<fmt:message key="administrador.gestion.clientes.boton.ver.detalle"/>">
+                                    <c:choose>
+                                        <c:when test="${proveedor.usuario1.activo == true}">
+                                            <input type="submit" name="cambiarEstado" value="<fmt:message key="administrador.gestion.clientes.boton.desactivar"/>">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input type="submit" name="cambiarEstado" value="<fmt:message key="administrador.gestion.clientes.boton.activar"/>">
+                                        </c:otherwise>
+                                    </c:choose>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+               </c:forEach>
+            </table>
+            <% session.removeAttribute("proveedores"); %>
+        </p>
+    </c:if>
+    <jsp:include page="${pageContext.request.contextPath}/jsp/mensajes.jsp"/>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/jsp/plantillaInferior.jsp"/>
 

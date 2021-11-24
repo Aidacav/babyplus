@@ -6,18 +6,14 @@
 package modelo.entidades;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -26,8 +22,8 @@ import javax.validation.constraints.Size;
  * @author Aida
  */
 @Entity
-@Table(name = "cliente")
-public class Cliente implements Serializable {
+@Table(name = "proveedor")
+public class Proveedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,23 +34,18 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "NOMBRE")
-    private String nombre;
+    @Column(name = "RAZON_SOCIAL")
+    private String razonSocial;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "APELLIDOS")
-    private String apellidos;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "FECHA_NACIMIENTO")
-    @Temporal(TemporalType.DATE)
-    private Date fechaNacimiento;
+    @Size(min = 1, max = 9)
+    @Column(name = "CIF")
+    private String cif;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
-    @Column(name = "DOMICILIO")
-    private String domicilio;
+    @Column(name = "DIRECCION")
+    private String direccion;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -62,28 +53,34 @@ public class Cliente implements Serializable {
     private String localidad;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 10000, max = 99999)
     @Column(name = "CP")
     private int cp;
+    @Basic(optional = false)
+    @Lob
+    @Column(name = "LOGO")
+    private byte[] logo;
+    @Size(max = 100)
+    @Column(name = "RESPONSABLE")
+    private String responsable;
     @JoinColumn(name = "USUARIO", referencedColumnName = "ID", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Usuario usuario1;
 
-    public Cliente() {
+    public Proveedor() {
     }
 
-    public Cliente(Integer usuario) {
+    public Proveedor(Integer usuario) {
         this.usuario = usuario;
     }
 
-    public Cliente(Integer usuario, String nombre, String apellidos, Date fechaNacimiento, String domicilio, String localidad, int cp) {
+    public Proveedor(Integer usuario, String razonSocial, String cif, String direccion, String localidad, int cp, byte[] logo) {
         this.usuario = usuario;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.fechaNacimiento = fechaNacimiento;
-        this.domicilio = domicilio;
+        this.razonSocial = razonSocial;
+        this.cif = cif;
+        this.direccion = direccion;
         this.localidad = localidad;
         this.cp = cp;
+        this.logo = logo;
     }
 
     public Integer getUsuario() {
@@ -94,36 +91,28 @@ public class Cliente implements Serializable {
         this.usuario = usuario;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getRazonSocial() {
+        return razonSocial;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setRazonSocial(String razonSocial) {
+        this.razonSocial = razonSocial;
     }
 
-    public String getApellidos() {
-        return apellidos;
+    public String getCif() {
+        return cif;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+    public void setCif(String cif) {
+        this.cif = cif;
     }
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
+    public String getDireccion() {
+        return direccion;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public String getDomicilio() {
-        return domicilio;
-    }
-
-    public void setDomicilio(String domicilio) {
-        this.domicilio = domicilio;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
     public String getLocalidad() {
@@ -142,6 +131,22 @@ public class Cliente implements Serializable {
         this.cp = cp;
     }
 
+    public byte[] getLogo() {
+        return logo;
+    }
+
+    public void setLogo(byte[] logo) {
+        this.logo = logo;
+    }
+
+    public String getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(String responsable) {
+        this.responsable = responsable;
+    }
+    
     public Usuario getUsuario1() {
         return usuario1;
     }

@@ -10,7 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import modelo.ActualizacionClientes;
+import modelo.ActualizacionProveedores;
 import modelo.BusquedaClientes;
+import modelo.BusquedaProveedores;
 
 /**
  *
@@ -42,6 +44,30 @@ public final class Parseador {
                 request.getParameter("domicilioCliente"),
                 request.getParameter("localidadCliente"),
                 request.getParameter("cpCliente"),
+                request.getParameter("origen"));
+    }
+    
+    public static BusquedaProveedores aBusquedaProveedores(HttpServletRequest request) {
+        return new BusquedaProveedores(
+                request.getParameter("idCliente"),
+                request.getParameter("usuarioProveedor"), 
+                request.getParameter("razonProveedor"), 
+                request.getParameter("cifProveedor"),
+                request.getParameter("fechaProveedor"),
+                request.getParameter("estadoProveedor"),
+                request.getParameter("origen"));
+    }
+    
+    public static ActualizacionProveedores aActualizacionProveedores(HttpServletRequest request) {
+        return new ActualizacionProveedores(
+                request.getParameter("idProveedor"),
+                request.getParameter("passwordProveedor"),
+                request.getParameter("razonProveedor"),
+                request.getParameter("cifProveedor"),
+                request.getParameter("direccionProveedor"),
+                request.getParameter("localidadProveedor"),
+                request.getParameter("cpProveedor"),
+                request.getParameter("responsableProveedor"),
                 request.getParameter("origen"));
     }
     

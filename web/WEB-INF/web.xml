@@ -13,8 +13,16 @@
         <servlet-class>controlador.privado.admin.BuscarClientes</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>BuscarProveedores</servlet-name>
+        <servlet-class>controlador.privado.admin.BuscarProveedores</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AccionesCliente</servlet-name>
         <servlet-class>controlador.privado.admin.AccionesCliente</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccionesProveedor</servlet-name>
+        <servlet-class>controlador.privado.admin.AccionesProveedor</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -29,8 +37,16 @@
         <url-pattern>/babyplus/jsp/privado/admin/buscarClientes</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>BuscarProveedores</servlet-name>
+        <url-pattern>/babyplus/jsp/privado/admin/buscarProveedores</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AccionesCliente</servlet-name>
         <url-pattern>/babyplus/jsp/privado/admin/accionesCliente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccionesProveedor</servlet-name>
+        <url-pattern>/babyplus/jsp/privado/admin/accionesProveedor</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
