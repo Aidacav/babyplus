@@ -23,4 +23,4 @@ jobs:
         java-package: jdk
         architecture: x64
     - name: Build with Ant
-      run: ant dist
+      run: ant do-dist
