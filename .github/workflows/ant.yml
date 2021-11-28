@@ -23,4 +23,4 @@ jobs:
         java-package: jdk
         architecture: x64
     - name: Build with Ant
-      run: ant do-dist
+      run: ant -Dj2ee.server.home="\" dist
