@@ -8,7 +8,7 @@
     <class>modelo.entidades.Proveedor</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://remotemysql.com:3306/6fsmIRWSVZ?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://remotemysql.com:3306?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="6fsmIRWSVZ"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="8HUjj0dNOa"/>
