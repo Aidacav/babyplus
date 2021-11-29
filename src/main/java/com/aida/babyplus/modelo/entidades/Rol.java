@@ -24,7 +24,7 @@ import javax.validation.constraints.Size;
  * @author Aida
  */
 @Entity
-@Table(name = "rol")
+@Table(name = "ROL")
 public class Rol implements Serializable {
 
     private static final long serialVersionUID = 1L;
