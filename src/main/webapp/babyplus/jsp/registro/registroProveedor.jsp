@@ -48,6 +48,7 @@
             </table>
         </form>
     </p>
+    <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/mensajes.jsp"/>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/plantillaInferior.jsp"/>
 
