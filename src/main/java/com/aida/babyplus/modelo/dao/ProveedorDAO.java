@@ -101,4 +101,16 @@ public class ProveedorDAO implements Serializable {
 
         return null;
     }
+
+    public Proveedor guardar(Proveedor proveedor) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(proveedor);
+            em.getTransaction().commit();
+            return proveedor;
+        }finally {
+            em.close();
+        }
+    }
 }

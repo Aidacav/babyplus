@@ -101,4 +101,16 @@ public class ClienteDAO implements Serializable {
 
         return null;
     }
+
+    public Cliente guardar(Cliente cliente) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(cliente);
+            em.getTransaction().commit();
+            return cliente;
+        }finally {
+            em.close();
+        }
+    }
 }

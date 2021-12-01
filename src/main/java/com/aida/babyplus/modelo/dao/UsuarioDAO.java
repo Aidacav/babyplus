@@ -44,6 +44,20 @@ public class UsuarioDAO implements Serializable {
             em.close();
         }
     }
+    
+    public Usuario buscarPorUsuario(String usuario) {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Usuario> cq = cb.createQuery(Usuario.class);
+            Root<Usuario> rt = cq.from(Usuario.class);
+            cq.where(cb.equal(rt.get("usuario"), usuario));
+            Query q = em.createQuery(cq);
+            return ((Usuario) q.getSingleResult());
+        } finally {
+            em.close();
+        }
+    }
 
     public Usuario cambiarEstado(Integer id) {
         EntityManager em = getEntityManager();
@@ -60,5 +74,17 @@ public class UsuarioDAO implements Serializable {
         }
 
         return null;
+    }
+
+    public Usuario guardar(Usuario usuario) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(usuario);
+            em.getTransaction().commit();
+            return usuario;
+        }finally {
+            em.close();
+        }
     }
 }

@@ -11,6 +11,9 @@ import com.aida.babyplus.modelo.ActualizacionProveedores;
 import com.aida.babyplus.modelo.BusquedaProveedores;
 import com.aida.babyplus.modelo.dao.ProveedorDAO;
 import com.aida.babyplus.modelo.entidades.Proveedor;
+import com.aida.babyplus.modelo.entidades.Usuario;
+import com.aida.babyplus.util.Parseador;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -40,5 +43,20 @@ public class ServicioProveedores {
 
     public Proveedor actualizarClienteAdmin(ActualizacionProveedores nuevosValores) {
         return proveedorDAO.actualizarValoresComoAdmin(nuevosValores);
+    }
+
+    public Proveedor crearProveedor(Usuario nuevoUsuario, HttpServletRequest request) {
+        
+        Proveedor nuevoProveedor = new Proveedor(nuevoUsuario.getId());
+        
+        nuevoProveedor.setUsuario1(nuevoUsuario);
+        nuevoProveedor.setRazonSocial(request.getParameter("razonProveedor"));
+        nuevoProveedor.setCif(request.getParameter("cifProveedor"));
+        nuevoProveedor.setDireccion(request.getParameter("direccionProveedor"));
+        nuevoProveedor.setLocalidad(request.getParameter("localidadProveedor"));
+        nuevoProveedor.setCp(Parseador.aNumero(request.getParameter("cpProveedor")));
+        nuevoProveedor.setResponsable(request.getParameter("responsableProveedor"));
+        
+        return proveedorDAO.guardar(nuevoProveedor);
     }
 }

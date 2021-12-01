@@ -15,6 +15,11 @@
                 <input type="submit" value="<fmt:message key="login.button"/>">
             </form>
         </p>
+        <p>
+            <center>
+                <a id="links" href="${pageContext.request.contextPath}/babyplus/jsp/registro/seleccionRegistro.jsp"><fmt:message key="registro.registrar"/></a>
+            </center>
+        </p>
         <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/mensajes.jsp"/>
     </center>
 </div>
