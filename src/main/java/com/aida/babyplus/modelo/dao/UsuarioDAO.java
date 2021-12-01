@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import com.aida.babyplus.modelo.entidades.Usuario;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -54,6 +55,8 @@ public class UsuarioDAO implements Serializable {
             cq.where(cb.equal(rt.get("usuario"), usuario));
             Query q = em.createQuery(cq);
             return ((Usuario) q.getSingleResult());
+        } catch (NoResultException nre) {
+            return null;
         } finally {
             em.close();
         }

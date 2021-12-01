@@ -41,7 +41,7 @@ public class ServicioUsuarios {
         nuevoUsuario.setActivo(true);
         nuevoUsuario.setFechaAlta(Date.from(Instant.now()));
         nuevoUsuario.setRol(rol);
-        
+
         return usuarioDAO.guardar(nuevoUsuario);
     }
 }

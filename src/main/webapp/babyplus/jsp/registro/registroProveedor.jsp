@@ -40,6 +40,19 @@
                     <td><input type="text" id="responsableProveedor" name="responsableProveedor" required="true" value="${sessionScope.proveedor.responsable}"/></td>
                 </tr>
                 <tr>
+                    <td><fmt:message key="proveedor.logo"/></td>
+                    <td><input type="file" id="logo" name="logo" accept="image/png, image/jpeg"/></td>
+                </tr>
+                <tr>
+                    <td><fmt:message key="cliente.idioma"/></td>
+                    <td>
+                        <select id="idioma" name="idioma">
+                            <option value="ES" selected="selected"><fmt:message key="idioma.español"/></option>
+                            <option value="EN"><fmt:message key="idioma.ingles"/></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <td colspan="2">
                         <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
                         <input type="submit" name="registrarProveedor" value="<fmt:message key="administrador.gestion.proveedores.boton.actualizar"/>">

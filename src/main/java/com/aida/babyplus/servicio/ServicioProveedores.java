@@ -47,6 +47,7 @@ public class ServicioProveedores {
 
     public Proveedor crearProveedor(Usuario nuevoUsuario, HttpServletRequest request) {
         
+        System.out.println("ssss");
         Proveedor nuevoProveedor = new Proveedor(nuevoUsuario.getId());
         
         nuevoProveedor.setUsuario1(nuevoUsuario);
@@ -56,6 +57,7 @@ public class ServicioProveedores {
         nuevoProveedor.setLocalidad(request.getParameter("localidadProveedor"));
         nuevoProveedor.setCp(Parseador.aNumero(request.getParameter("cpProveedor")));
         nuevoProveedor.setResponsable(request.getParameter("responsableProveedor"));
+        nuevoProveedor.setLogo(request.getParameter("logo").getBytes());
         
         return proveedorDAO.guardar(nuevoProveedor);
     }

@@ -40,6 +40,15 @@
                     <td><input type="date" id="fechaCliente" name="fechaCliente" required="true" value="<fmt:formatDate pattern="${formatoFecha}" type="DATE" value="${sessionScope.cliente.fechaNacimiento}"/>"/></td>
                 </tr>
                 <tr>
+                    <td><fmt:message key="cliente.idioma"/></td>
+                    <td>
+                        <select id="idioma" name="idioma">
+                            <option value="ES" selected="selected"><fmt:message key="idioma.español"/></option>
+                            <option value="EN"><fmt:message key="idioma.ingles"/></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <td colspan="2">
                         <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
                         <input type="submit" name="registrarCliente" value="<fmt:message key="registro.registrar.cliente"/>">

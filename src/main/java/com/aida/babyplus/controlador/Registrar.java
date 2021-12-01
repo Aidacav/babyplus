@@ -28,6 +28,7 @@ public class Registrar extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         servicioClientes = new ServicioClientes();
+        servicioProveedores = new ServicioProveedores();
         servicioUsuarios = new ServicioUsuarios();
     }
 
