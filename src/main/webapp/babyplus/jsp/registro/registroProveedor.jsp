@@ -55,7 +55,7 @@
                 <tr>
                     <td colspan="2">
                         <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                        <input type="submit" name="registrarProveedor" value="<fmt:message key="administrador.gestion.proveedores.boton.actualizar"/>">
+                        <input type="submit" name="registrarProveedor" value="<fmt:message key="registro.registrar.cliente"/>">
                     </td>
                 </tr>
             </table>

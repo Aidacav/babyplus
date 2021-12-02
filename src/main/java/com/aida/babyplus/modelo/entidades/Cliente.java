@@ -1,12 +1,16 @@
 package com.aida.babyplus.modelo.entidades;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -61,6 +65,8 @@ public class Cliente implements Serializable {
     @JoinColumn(name = "USUARIO", referencedColumnName = "ID", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Usuario usuario1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private Collection<ClienteSubscripcion> subscripciones;
 
     public Cliente() {
     }
@@ -142,4 +148,14 @@ public class Cliente implements Serializable {
     public void setUsuario1(Usuario usuario1) {
         this.usuario1 = usuario1;
     }
+
+    public Collection<ClienteSubscripcion> getSubscripciones() {
+        return subscripciones;
+    }
+
+    public void setSubscripciones(Collection<ClienteSubscripcion> subscripciones) {
+        this.subscripciones = subscripciones;
+    }
+    
+    
 }

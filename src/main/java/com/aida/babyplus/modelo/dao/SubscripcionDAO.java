@@ -5,7 +5,7 @@
  */
 package com.aida.babyplus.modelo.dao;
 
-import com.aida.babyplus.modelo.entidades.Rol;
+import com.aida.babyplus.modelo.entidades.Subscripcion;
 import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,11 +19,11 @@ import javax.persistence.criteria.Root;
  *
  * @author Aida
  */
-public class RolDAO implements Serializable {
+public class SubscripcionDAO implements Serializable {
 
     private EntityManagerFactory emf = null;
     
-    public RolDAO() {
+    public SubscripcionDAO() {
         this.emf = Persistence.createEntityManagerFactory("babyplusPU");
     }
     
@@ -31,19 +31,19 @@ public class RolDAO implements Serializable {
         return this.emf.createEntityManager();
     }
 
-    
-    public Rol buscarPorDescripcion(String descripcion) {
+    public Subscripcion buscarPorNombre(String nombre) {
         EntityManager em = getEntityManager();
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Rol> cq = cb.createQuery(Rol.class);
-            Root<Rol> rt = cq.from(Rol.class);
-            cq.where(cb.equal(rt.get("descripcion"), descripcion));
+            CriteriaQuery<Subscripcion> cq = cb.createQuery(Subscripcion.class);
+            Root<Subscripcion> rt = cq.from(Subscripcion.class);
+            cq.where(cb.equal(rt.get("nombre"), nombre.toUpperCase()));
             Query q = em.createQuery(cq);
-            return ((Rol) q.getSingleResult());
+            return ((Subscripcion) q.getSingleResult());
         } catch (Exception e) {
             return null;
-        } finally {
+        } 
+        finally {
             em.close();
         }
     }

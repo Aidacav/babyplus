@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.aida.babyplus.controlador.filtros;
 
 import java.io.IOException;
@@ -19,7 +14,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.aida.babyplus.modelo.entidades.Usuario;
-import com.aida.babyplus.servicio.TipoUsuario;
+import com.aida.babyplus.servicio.ServicioClientes;
 
 /**
  *
@@ -27,6 +22,9 @@ import com.aida.babyplus.servicio.TipoUsuario;
  */
 @WebFilter(filterName = "UsuarioCliente", urlPatterns = {"/babyplus/jsp/privado/cliente/*"})
 public class UsuarioCliente implements Filter {
+    
+    private static final ServicioClientes SERVICIO_CLIENTES = new ServicioClientes();
+    private static final String SUBSCRIPCION_PENDIENTE = "PENDIENTE";
     
     private static final boolean debug = true;
 
@@ -50,18 +48,26 @@ public class UsuarioCliente implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         Usuario usuario = ((Usuario) httpServletRequest.getSession().getAttribute("usuario"));
 
 
-        if (usuario != null && TipoUsuario.CLIENTE.toString().equals(usuario.getRol().getDescripcion())) {
-            chain.doFilter(request, response);
+        if (SERVICIO_CLIENTES.esCliente(usuario)) {
+            
+            if(estaRenovando(httpServletRequest) || SERVICIO_CLIENTES.tieneSubscripcionActiva(usuario.getId())) {
+                httpServletRequest.getSession().removeAttribute(SUBSCRIPCION_PENDIENTE);
+                chain.doFilter(request, response);
+            } else {
+                httpServletRequest.getSession().setAttribute("error", "subscricion.mensaje");
+                httpServletRequest.getSession().setAttribute(SUBSCRIPCION_PENDIENTE, "true");
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/babyplus/jsp/privado/cliente/renovarSubscripcion.jsp");
+            }
         } else {
             httpServletRequest.getSession().setAttribute("error", "login.error.privilegios.insuficientes");
-            HttpServletResponse httpServletResponse = (HttpServletResponse) response;
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/babyplus/jsp/paginaLogin.jsp");
         }
     }
-
+    
     /**
      * Return the filter configuration object for this filter.
      */
@@ -157,5 +163,9 @@ public class UsuarioCliente implements Filter {
     public void log(String msg) {
         filterConfig.getServletContext().log(msg);        
     }
-    
+
+    private boolean estaRenovando(HttpServletRequest httpServletRequest) {
+        return httpServletRequest.getSession().getAttribute(SUBSCRIPCION_PENDIENTE) == "true" || httpServletRequest.getParameter(SUBSCRIPCION_PENDIENTE) != null;
+    }
+
 }

@@ -19,6 +19,8 @@ import javax.persistence.criteria.Root;
 import com.aida.babyplus.modelo.ActualizacionClientes;
 import com.aida.babyplus.modelo.BusquedaClientes;
 import com.aida.babyplus.modelo.entidades.Cliente;
+import com.aida.babyplus.modelo.entidades.ClienteSubscripcion;
+import com.aida.babyplus.modelo.entidades.Subscripcion;
 
 /**
  *
@@ -36,7 +38,7 @@ public class ClienteDAO implements Serializable {
         return this.emf.createEntityManager();
     }
     
-    public List<Cliente> buscarPorId(Integer id) {
+    public Cliente buscarPorId(Integer id) {
         EntityManager em = getEntityManager();
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -44,7 +46,9 @@ public class ClienteDAO implements Serializable {
             Root<Cliente> rt = cq.from(Cliente.class);
             cq.where(cb.equal(rt.get("usuario"), id));
             Query q = em.createQuery(cq);
-            return q.getResultList();
+            return ((Cliente) q.getSingleResult());
+        } catch (Exception e) {
+            return null;
         } finally {
             em.close();
         }
@@ -109,8 +113,25 @@ public class ClienteDAO implements Serializable {
             em.persist(cliente);
             em.getTransaction().commit();
             return cliente;
-        }finally {
+        } finally {
             em.close();
         }
+    }
+    
+    public Cliente agregarSubscripcion(ClienteSubscripcion subscripcion) {
+        EntityManager em = getEntityManager();
+        try {
+            Cliente clienteGuardado = em.find(Cliente.class, subscripcion.getCliente().getUsuario());
+            if (clienteGuardado != null) {
+                em.getTransaction().begin();
+                clienteGuardado.getSubscripciones().add(subscripcion);
+                em.getTransaction().commit();
+                return clienteGuardado;
+            }
+        } finally {
+            em.close();
+        }
+
+        return null;
     }
 }
