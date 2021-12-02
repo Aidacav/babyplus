@@ -21,6 +21,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -44,7 +45,7 @@ public class ServicioClientes {
         
         if(criterios.getId() != null) {
             Cliente cliente = clienteDAO.buscarPorId(criterios.getId());
-            return cliente != null ? List.of(cliente) : List.of();
+            return cliente != null ? new LinkedList<Cliente>(){{add(cliente);}} : new LinkedList<Cliente>();
         }
         
         return clienteDAO.buscarPorCriterios(criterios);
