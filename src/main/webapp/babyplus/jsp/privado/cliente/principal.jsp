@@ -4,7 +4,7 @@
 <fmt:setLocale value="${sessionScope.idioma}"/>
 <fmt:setBundle basename="mensajes"/>
 <div class="contenedor">
-    <h1>CLIENTE Index</h1>
+    <h1 class="titleIndex"><fmt:message key="principal.bienvenido"/> ${sessionScope.usuario.usuario}</h1>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/plantillaInferior.jsp"/>
 
