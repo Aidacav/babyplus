@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.aida.babyplus.modelo.BusquedaProveedores;
 import com.aida.babyplus.modelo.entidades.Proveedor;
 import com.aida.babyplus.servicio.ServicioProveedores;
 import com.aida.babyplus.util.Parseador;
@@ -31,11 +30,10 @@ public class BuscarProveedores extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        BusquedaProveedores criterios = Parseador.aBusquedaProveedores(request);
         HttpSession session = request.getSession();
 
         try {
-            List<Proveedor> proveedores = servicioProveedores.buscarPorCriterios(criterios);
+            List<Proveedor> proveedores = servicioProveedores.buscarPorCriteriosAdmin(request);
             if (!proveedores.isEmpty()) {
                 session.setAttribute("proveedores", proveedores);
             } else {
@@ -45,6 +43,6 @@ public class BuscarProveedores extends HttpServlet {
             session.setAttribute("error", "error.generico");
         }
         
-        response.sendRedirect(criterios.getOrigen());
+        response.sendRedirect(request.getParameter("origen"));
     }
 }

@@ -17,27 +17,27 @@
                 </tr>
                 <tr>
                     <td><fmt:message key="cliente.nombre"/></td>
-                    <td><input type="text" id="nombreCliente" name="nombreCliente" required="true" value="${sessionScope.cliente.nombre}"/></td>
+                    <td><input type="text" id="nombre" name="nombre" required="true" value="${sessionScope.cliente.nombre}"/></td>
                 </tr>
                 <tr>
                     <td><fmt:message key="cliente.apellidos"/></td>
-                    <td><input type="text" id="apellidosCliente" name="apellidosCliente" required="true" value="${sessionScope.cliente.apellidos}"/></td>
+                    <td><input type="text" id="apellidos" name="apellidos" required="true" value="${sessionScope.cliente.apellidos}"/></td>
                 </tr>
                 <tr>
                     <td><fmt:message key="cliente.domicilio"/></td>
-                    <td><input type="text" id="domicilioCliente" name="domicilioCliente" required="true" value="${sessionScope.cliente.domicilio}"/></td>
+                    <td><input type="text" id="domicilio" name="domicilio" required="true" value="${sessionScope.cliente.domicilio}"/></td>
                 </tr>
                 <tr>
                     <td><fmt:message key="cliente.localidad"/></td>
-                    <td><input type="text" id="localidadCliente" name="localidadCliente" required="true" value="${sessionScope.cliente.localidad}"/></td>
+                    <td><input type="text" id="localidad" name="localidad" required="true" value="${sessionScope.cliente.localidad}"/></td>
                 </tr>
                 <tr>
                     <td><fmt:message key="cliente.cp"/></td>
-                    <td><input type="number" min="10000" max="99999" id="cpCliente" name="cpCliente" required="true" value="${sessionScope.cliente.cp}"/></td>
+                    <td><input type="number" min="10000" max="99999" id="cp" name="cp" required="true" value="${sessionScope.cliente.cp}"/></td>
                 </tr>
                 <tr>
                     <td><fmt:message key="cliente.fecha.nacimiento"/></td>
-                    <td><input type="date" id="fechaCliente" name="fechaCliente" required="true" value="<fmt:formatDate pattern="${formatoFecha}" type="DATE" value="${sessionScope.cliente.fechaNacimiento}"/>"/></td>
+                    <td><input type="date" id="fechaNacimiento" name="fechaNacimiento" required="true" value="<fmt:formatDate pattern="${formatoFecha}" type="DATE" value="${sessionScope.cliente.fechaNacimiento}"/>"/></td>
                 </tr>
                 <tr>
                     <td><fmt:message key="cliente.idioma"/></td>

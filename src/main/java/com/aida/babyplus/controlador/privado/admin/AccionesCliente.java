@@ -6,8 +6,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.aida.babyplus.modelo.ActualizacionClientes;
-import com.aida.babyplus.modelo.BusquedaClientes;
 import com.aida.babyplus.modelo.entidades.Cliente;
 import com.aida.babyplus.servicio.ServicioClientes;
 import com.aida.babyplus.servicio.ServicioUsuarios;
@@ -52,12 +50,12 @@ public class AccionesCliente extends HttpServlet {
     private void cambiaEstado(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        BusquedaClientes criterios = Parseador.aBusquedaClientes(request);
+        Integer idCliente = Parseador.aNumero(request.getParameter("id"));
 
         try {
-            Cliente clienteAModificar = servicioClientes.buscarPorid(criterios.getId());
+            Cliente clienteAModificar = servicioClientes.buscarPorid(idCliente);
             if (clienteAModificar != null) {
-                servicioUsuarios.cambiarEstado(criterios.getId());
+                servicioUsuarios.cambiarEstado(idCliente);
                 session.setAttribute("mensaje", "administrador.gestion.clientes.accion.cambio.estado.ok");
                 session.removeAttribute("clientes");
             } else {
@@ -67,16 +65,16 @@ public class AccionesCliente extends HttpServlet {
             session.setAttribute("error", "administrador.gestion.clientes.accion.cambio.estado.ko");
         }
         
-        response.sendRedirect(criterios.getOrigen());
+        response.sendRedirect(request.getParameter("origen"));
     }
     
     private void cargarDetalle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        BusquedaClientes criterios = Parseador.aBusquedaClientes(request);
+        Integer idCliente = Parseador.aNumero(request.getParameter("id"));
 
         try {
-            Cliente cliente = servicioClientes.buscarPorid(criterios.getId());
+            Cliente cliente = servicioClientes.buscarPorid(idCliente);
             if (cliente != null) {
                 session.removeAttribute("clientes");
                 session.setAttribute("cliente", cliente);
@@ -86,19 +84,19 @@ public class AccionesCliente extends HttpServlet {
             }
         } catch (Exception e) {
             session.setAttribute("error", "administrador.gestion.clientes.accion.detalles.ko");
-            response.sendRedirect(criterios.getOrigen());
+            response.sendRedirect(request.getParameter("origen"));
         }
     }
     
     private void actualizarDatosCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        ActualizacionClientes nuevosValores = Parseador.aActualizacionClientes(request);
+        Integer idCliente = Parseador.aNumero(request.getParameter("id"));
 
         try {
-            Cliente clienteAModificar = servicioClientes.buscarPorid(nuevosValores.getId());
+            Cliente clienteAModificar = servicioClientes.buscarPorid(idCliente);
             if (clienteAModificar != null) {
-                Cliente clienteModificado = servicioClientes.actualizarClienteAdmin(nuevosValores);
+                Cliente clienteModificado = servicioClientes.actualizarClienteAdmin(request);
                 session.setAttribute("mensaje", "administrador.gestion.clientes.accion.actualizar.ok");
                 session.setAttribute("cliente", clienteModificado);
             } else {
@@ -108,14 +106,13 @@ public class AccionesCliente extends HttpServlet {
             session.setAttribute("error", "administrador.gestion.clientes.accion.actualizar.ko");
         }
         
-        response.sendRedirect(nuevosValores.getOrigen());
+        response.sendRedirect(request.getParameter("origen"));
     }
     
     private void devolverNoDisponible(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        String origen = request.getParameter("origen");
         HttpSession session = request.getSession();
         session.setAttribute("error", "administrador.gestion.clientes.error.no.disponible");
-        response.sendRedirect(origen);
+        response.sendRedirect(request.getParameter("origen"));
     }
 }

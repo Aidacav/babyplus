@@ -48,7 +48,7 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ACTIVO")
-    private boolean activo;
+    private Boolean activo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
@@ -65,7 +65,7 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    public Usuario(Integer id, String usuario, String password, Date fechaAlta, boolean activo, String idioma) {
+    public Usuario(Integer id, String usuario, String password, Date fechaAlta, Boolean activo, String idioma) {
         this.id = id;
         this.usuario = usuario;
         this.password = password;
@@ -106,11 +106,11 @@ public class Usuario implements Serializable {
         this.fechaAlta = fechaAlta;
     }
 
-    public boolean getActivo() {
+    public Boolean getActivo() {
         return activo;
     }
 
-    public void setActivo(boolean activo) {
+    public void setActivo(Boolean activo) {
         this.activo = activo;
     }
 

@@ -61,7 +61,7 @@ public class Cliente implements Serializable {
     @NotNull
     @Size(min = 10000, max = 99999)
     @Column(name = "CP")
-    private int cp;
+    private Integer cp;
     @JoinColumn(name = "USUARIO", referencedColumnName = "ID", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Usuario usuario1;
@@ -133,11 +133,11 @@ public class Cliente implements Serializable {
         this.localidad = localidad;
     }
 
-    public int getCp() {
+    public Integer getCp() {
         return cp;
     }
 
-    public void setCp(int cp) {
+    public void setCp(Integer cp) {
         this.cp = cp;
     }
 

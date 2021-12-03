@@ -22,13 +22,13 @@
                     <a href="${pageContext.request.contextPath}/babyplus/jsp/privado/${fn:toLowerCase(sessionScope.usuario.rol.descripcion)}/principal.jsp"><fmt:message key="index.nav.principal"/></a>
                     <c:choose>
                         <c:when test="${sessionScope.usuario.rol.descripcion == 'ADMIN'}">
-                            
                             <a href="${pageContext.request.contextPath}/babyplus/jsp/privado/admin/clientes.jsp"><fmt:message key="index.nav.admin.clientes"/></a>
                             <a href="${pageContext.request.contextPath}/babyplus/jsp/privado/admin/proveedores.jsp"><fmt:message key="index.nav.admin.proveedores"/></a>
                         </c:when>
                         <c:when test="${sessionScope.usuario.rol.descripcion == 'PROVEEDOR'}">
                         </c:when>
                         <c:otherwise>
+                            <a href="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/proveedores.jsp"><fmt:message key="index.nav.admin.proveedores"/></a>
                         </c:otherwise>
                     </c:choose>
                 </c:if>

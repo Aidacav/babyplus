@@ -4,16 +4,16 @@
 <p>
     <center>
         <form method="get" action="${pageContext.request.contextPath}/babyplus/jsp/privado/admin/buscarProveedores">
-            <label for="usuarioProveedor"><fmt:message key="buscador.proveedores.nombre.usuario"/></label>
-            <input type="text" id="usuarioProveedor" name="usuarioProveedor">
-            <label for="razonProveedor"><fmt:message key="buscador.proveedores.razon"/></label>
-            <input type="text" id="razonProveedor" name="razonProveedor">
-            <label for="cifProveedor"><fmt:message key="buscador.proveedores.cif"/></label>
-            <input type="text" id="cifProveedor" name="cifProveedor">
-            <label for="fechaProveedor"><fmt:message key="buscador.proveedores.fecha.alta"/></label>
-            <input type="date" id="fechaProveedor" name="fechaProveedor">
-            <label for="estadoProveedor"><fmt:message key="buscador.proveedores.estado"/></label>
-            <select id="estadoProveedor" name="estadoProveedor">
+            <label for="usuario"><fmt:message key="buscador.proveedores.nombre.usuario"/></label>
+            <input type="text" id="usuario" name="usuario">
+            <label for="razon"><fmt:message key="buscador.proveedores.razon"/></label>
+            <input type="text" id="razon" name="razon">
+            <label for="cif"><fmt:message key="buscador.proveedores.cif"/></label>
+            <input type="text" id="cif" name="cif">
+            <label for="fechaAlta"><fmt:message key="buscador.proveedores.fecha.alta"/></label>
+            <input type="date" id="fechaAlta" name="fechaAlta">
+            <label for="activo"><fmt:message key="buscador.proveedores.estado"/></label>
+            <select id="activo" name="activo">
                 <option value="null" selected="selected"><fmt:message key="buscador.proveedores.estado.todos"/></option>
                 <option value="1"><fmt:message key="buscador.proveedores.estado.activo"/></option>
                 <option value="0"><fmt:message key="buscador.proveedores.estado.deshabilitado"/></option>

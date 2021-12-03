@@ -16,11 +16,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import com.aida.babyplus.modelo.ActualizacionClientes;
-import com.aida.babyplus.modelo.BusquedaClientes;
 import com.aida.babyplus.modelo.entidades.Cliente;
 import com.aida.babyplus.modelo.entidades.ClienteSubscripcion;
-import com.aida.babyplus.modelo.entidades.Subscripcion;
+import com.aida.babyplus.util.Parseador;
 
 /**
  *
@@ -54,7 +52,7 @@ public class ClienteDAO implements Serializable {
         }
     }
 
-    public List<Cliente> buscarPorCriterios(BusquedaClientes criterios) {
+    public List<Cliente> buscarPorCriteriosAdmin(Cliente clienteABuscar) {
         EntityManager em = getEntityManager();
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -62,16 +60,16 @@ public class ClienteDAO implements Serializable {
             Root<Cliente> rt = cq.from(Cliente.class);
             List<Predicate> predicados = new ArrayList<>();
             
-            predicados.add(cb.like(rt.get("usuario1").get("usuario").as(String.class), criterios.getNombreUsuario()));
-            predicados.add(cb.like(rt.get("nombre").as(String.class), criterios.getNombre()));
-            predicados.add(cb.like(rt.get("apellidos").as(String.class), criterios.getApellidos()));
+            predicados.add(cb.like(rt.get("usuario1").get("usuario").as(String.class), Parseador.aLike(clienteABuscar.getUsuario1().getUsuario())));
+            predicados.add(cb.like(rt.get("nombre").as(String.class), Parseador.aLike(clienteABuscar.getNombre())));
+            predicados.add(cb.like(rt.get("apellidos").as(String.class), Parseador.aLike(clienteABuscar.getApellidos())));
             
-            if(criterios.getActivo() != null) {
-                predicados.add(cb.equal(rt.get("usuario1").get("activo"), criterios.getActivo()));
+            if(clienteABuscar.getUsuario1().getActivo() != null) {
+                predicados.add(cb.equal(rt.get("usuario1").get("activo"), clienteABuscar.getUsuario1().getActivo()));
             }
             
-            if(criterios.getFechaAlta() != null) {
-                predicados.add(cb.greaterThanOrEqualTo(rt.get("usuario1").<java.util.Date>get("fechaAlta"), criterios.getFechaAlta()));
+            if(clienteABuscar.getUsuario1().getFechaAlta() != null) {
+                predicados.add(cb.greaterThanOrEqualTo(rt.get("usuario1").<java.util.Date>get("fechaAlta"), clienteABuscar.getUsuario1().getFechaAlta()));
             }
             
             cq.where(predicados.toArray(new Predicate[0]));
@@ -83,19 +81,19 @@ public class ClienteDAO implements Serializable {
         }
     }
 
-    public Cliente actualizarValoresComoAdmin(ActualizacionClientes nuevosValores) {
+    public Cliente actualizarValoresAdmin(Cliente datosCliente, String nuevoPassword) {
         EntityManager em = getEntityManager();
         try {
-            Cliente clienteGuardado = em.find(Cliente.class, nuevosValores.getId());
+            Cliente clienteGuardado = em.find(Cliente.class, datosCliente.getUsuario());
             if (clienteGuardado != null) {
                 em.getTransaction().begin();
-                clienteGuardado.setNombre(nuevosValores.getNombre());
-                clienteGuardado.setApellidos(nuevosValores.getApellidos());
-                clienteGuardado.setFechaNacimiento(nuevosValores.getFechaNacimiento());
-                clienteGuardado.setDomicilio(nuevosValores.getDomicilio());
-                clienteGuardado.setLocalidad(nuevosValores.getLocalidad());
-                clienteGuardado.setCp(nuevosValores.getCp());
-                clienteGuardado.getUsuario1().setPassword(nuevosValores.getPassword());
+                clienteGuardado.setNombre(datosCliente.getNombre());
+                clienteGuardado.setApellidos(datosCliente.getApellidos());
+                clienteGuardado.setFechaNacimiento(datosCliente.getFechaNacimiento());
+                clienteGuardado.setDomicilio(datosCliente.getDomicilio());
+                clienteGuardado.setLocalidad(datosCliente.getLocalidad());
+                clienteGuardado.setCp(datosCliente.getCp());
+                clienteGuardado.getUsuario1().setPassword(nuevoPassword);
                 em.getTransaction().commit();
                 return clienteGuardado;
             }

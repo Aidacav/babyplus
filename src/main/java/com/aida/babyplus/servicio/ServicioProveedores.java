@@ -7,12 +7,12 @@ package com.aida.babyplus.servicio;
 
 
 import java.util.List;
-import com.aida.babyplus.modelo.ActualizacionProveedores;
-import com.aida.babyplus.modelo.BusquedaProveedores;
 import com.aida.babyplus.modelo.dao.ProveedorDAO;
+import com.aida.babyplus.modelo.entidades.Cliente;
 import com.aida.babyplus.modelo.entidades.Proveedor;
 import com.aida.babyplus.modelo.entidades.Usuario;
 import com.aida.babyplus.util.Parseador;
+import java.util.LinkedList;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -23,42 +23,67 @@ public class ServicioProveedores {
     
     private final ProveedorDAO proveedorDAO = new ProveedorDAO();
     
-    public Proveedor buscarPorid(Integer idCliente) {
-        
-        List<Proveedor> proveedores = proveedorDAO.buscarPorId(idCliente);
-        if(!proveedores.isEmpty()) {
-            return proveedores.get(0);
+    public Proveedor buscarPorid(Integer id) {
+        if(id == null) {
+            return null;
         }
-        return null;
+        return proveedorDAO.buscarPorId(id);
     }
 
-    public List<Proveedor> buscarPorCriterios(BusquedaProveedores criterios) {
+    public List<Proveedor> buscarPorCriteriosAdmin(HttpServletRequest request) {
         
-        if(criterios.getId() != null) {
-            return proveedorDAO.buscarPorId(criterios.getId());
+        Proveedor proveedorABuscar = aProveedor(request);
+        if(proveedorABuscar.getUsuario() != null) {
+            Proveedor proveedor = buscarPorid(proveedorABuscar.getUsuario());
+            return proveedor != null ? new LinkedList<Proveedor>(){{add(proveedor);}} : new LinkedList<>();
         }
         
-        return proveedorDAO.buscarPorCriterios(criterios);
+        return proveedorDAO.buscarPorCriteriosAdmin(proveedorABuscar);
     }
 
-    public Proveedor actualizarClienteAdmin(ActualizacionProveedores nuevosValores) {
-        return proveedorDAO.actualizarValoresComoAdmin(nuevosValores);
+    public Proveedor actualizarClienteAdmin(HttpServletRequest request) {
+        
+        Proveedor datosProveedor = aProveedor(request);
+        String nuevoPassword = request.getParameter("password");
+        return proveedorDAO.actualizarValoresAdmin(datosProveedor, nuevoPassword);
     }
 
     public Proveedor crearProveedor(Usuario nuevoUsuario, HttpServletRequest request) {
         
-        System.out.println("ssss");
-        Proveedor nuevoProveedor = new Proveedor(nuevoUsuario.getId());
-        
+        Proveedor nuevoProveedor = aProveedor(request);
+        nuevoProveedor.setUsuario(nuevoUsuario.getId());
         nuevoProveedor.setUsuario1(nuevoUsuario);
-        nuevoProveedor.setRazonSocial(request.getParameter("razonProveedor"));
-        nuevoProveedor.setCif(request.getParameter("cifProveedor"));
-        nuevoProveedor.setDireccion(request.getParameter("direccionProveedor"));
-        nuevoProveedor.setLocalidad(request.getParameter("localidadProveedor"));
-        nuevoProveedor.setCp(Parseador.aNumero(request.getParameter("cpProveedor")));
-        nuevoProveedor.setResponsable(request.getParameter("responsableProveedor"));
-        nuevoProveedor.setLogo(request.getParameter("logo").getBytes());
         
         return proveedorDAO.guardar(nuevoProveedor);
+    }
+    
+    public List<Proveedor> buscarPorCriteriosCliente(HttpServletRequest request) {
+        
+        Proveedor proveedorABuscar = aProveedor(request);
+        // TODO: Añadir request.getParameter("servicioProveedor") para filtrar por servicios
+
+        return proveedorDAO.buscarPorCriterios(proveedorABuscar);
+    }
+    
+    private Proveedor aProveedor(HttpServletRequest request) {
+        
+        Usuario usuario = new Usuario();
+        
+        usuario.setUsuario(request.getParameter("usuario"));
+        usuario.setActivo(Parseador.aBoolean(request.getParameter("activo")));
+        usuario.setFechaAlta(Parseador.aFecha(request.getParameter("fechaAlta")));
+        
+        Proveedor proveedor = new Proveedor();
+        proveedor.setRazonSocial(request.getParameter("razon"));
+        proveedor.setCif(request.getParameter("cif"));
+        proveedor.setDireccion(request.getParameter("direccion"));
+        proveedor.setLocalidad(request.getParameter("localidad"));
+        proveedor.setCp(Parseador.aNumero(request.getParameter("cp")));
+        proveedor.setLogo(Parseador.aBytes(request.getParameter("logo")));
+        proveedor.setResponsable(request.getParameter("responsable"));
+        proveedor.setUsuario(Parseador.aNumero(request.getParameter("id")));
+        proveedor.setUsuario1(usuario);
+        
+        return proveedor;
     }
 }

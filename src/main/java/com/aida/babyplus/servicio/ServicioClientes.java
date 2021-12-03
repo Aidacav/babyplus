@@ -7,8 +7,6 @@ package com.aida.babyplus.servicio;
 
 
 import java.util.List;
-import com.aida.babyplus.modelo.ActualizacionClientes;
-import com.aida.babyplus.modelo.BusquedaClientes;
 import com.aida.babyplus.modelo.dao.ClienteDAO;
 import com.aida.babyplus.modelo.dao.SubscripcionDAO;
 import com.aida.babyplus.modelo.entidades.Cliente;
@@ -18,7 +16,6 @@ import com.aida.babyplus.modelo.entidades.Usuario;
 import com.aida.babyplus.util.Parseador;
 import java.time.Instant;
 import static java.time.temporal.ChronoUnit.DAYS;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
@@ -37,35 +34,37 @@ public class ServicioClientes {
         return usuario != null && TipoUsuario.CLIENTE.toString().equals(usuario.getRol().getDescripcion());
     }
  
-    public Cliente buscarPorid(Integer idCliente) {
-        return clienteDAO.buscarPorId(idCliente);
+    public Cliente buscarPorid(Integer id) {
+        if(id == null) {
+            return null;
+        }
+        return clienteDAO.buscarPorId(id);
     }
 
-    public List<Cliente> buscarPorCriterios(BusquedaClientes criterios) {
+    public List<Cliente> buscarPorCriteriosAdmin(HttpServletRequest request) {
         
-        if(criterios.getId() != null) {
-            Cliente cliente = clienteDAO.buscarPorId(criterios.getId());
-            return cliente != null ? new LinkedList<Cliente>(){{add(cliente);}} : new LinkedList<Cliente>();
+        Cliente clienteABuscar = aCliente(request);
+        
+        if(clienteABuscar.getUsuario() != null) {
+            Cliente cliente = buscarPorid(clienteABuscar.getUsuario());
+            return cliente != null ? new LinkedList<Cliente>(){{add(cliente);}} : new LinkedList<>();
         }
         
-        return clienteDAO.buscarPorCriterios(criterios);
+        return clienteDAO.buscarPorCriteriosAdmin(clienteABuscar);
     }
 
-    public Cliente actualizarClienteAdmin(ActualizacionClientes nuevosValores) {
-        return clienteDAO.actualizarValoresComoAdmin(nuevosValores);
+    public Cliente actualizarClienteAdmin(HttpServletRequest request) {
+        
+        Cliente datosCliente = aCliente(request);
+        String nuevoPassword = request.getParameter("password");
+        return clienteDAO.actualizarValoresAdmin(datosCliente, nuevoPassword);
     }
 
     public Cliente crearCliente(Usuario nuevoUsuario, HttpServletRequest request) {
         
-        Cliente nuevoCliente = new Cliente(nuevoUsuario.getId());
-        
+        Cliente nuevoCliente = aCliente(request);
+        nuevoCliente.setUsuario(nuevoUsuario.getId());
         nuevoCliente.setUsuario1(nuevoUsuario);
-        nuevoCliente.setNombre(request.getParameter("nombreCliente"));
-        nuevoCliente.setApellidos(request.getParameter("apellidosCliente"));
-        nuevoCliente.setDomicilio(request.getParameter("domicilioCliente"));
-        nuevoCliente.setLocalidad(request.getParameter("localidadCliente"));
-        nuevoCliente.setCp(Parseador.aNumero(request.getParameter("cpCliente")));
-        nuevoCliente.setFechaNacimiento(Parseador.aFecha(request.getParameter("fechaCliente")));
         
         return clienteDAO.guardar(nuevoCliente);
     }
@@ -99,5 +98,27 @@ public class ServicioClientes {
         }
         
         return false;
+    }
+    
+    private Cliente aCliente(HttpServletRequest request) {
+        
+        Usuario usuario = new Usuario();
+        
+        usuario.setUsuario(request.getParameter("usuario"));
+        usuario.setActivo(Parseador.aBoolean(request.getParameter("activo")));
+        usuario.setFechaAlta(Parseador.aFecha(request.getParameter("fechaAlta")));
+        
+        Cliente cliente = new Cliente();
+        
+        cliente.setUsuario(Parseador.aNumero(request.getParameter("id")));
+        cliente.setNombre(request.getParameter("nombre"));
+        cliente.setApellidos(request.getParameter("apellidos"));
+        cliente.setFechaNacimiento(Parseador.aFecha(request.getParameter("fechaNacimiento")));
+        cliente.setDomicilio(request.getParameter("domicilio"));
+        cliente.setLocalidad(request.getParameter("localidad"));
+        cliente.setCp(Parseador.aNumero(request.getParameter("cp")));
+        cliente.setUsuario1(usuario);
+
+        return cliente;
     }
 }

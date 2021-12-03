@@ -49,7 +49,7 @@ public class Proveedor implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "CP")
-    private int cp;
+    private Integer cp;
     @Basic(optional = false)
     @Lob
     @Column(name = "LOGO")
@@ -118,11 +118,11 @@ public class Proveedor implements Serializable {
         this.localidad = localidad;
     }
 
-    public int getCp() {
+    public Integer getCp() {
         return cp;
     }
 
-    public void setCp(int cp) {
+    public void setCp(Integer cp) {
         this.cp = cp;
     }
 

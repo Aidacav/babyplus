@@ -16,9 +16,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import com.aida.babyplus.modelo.ActualizacionProveedores;
-import com.aida.babyplus.modelo.BusquedaProveedores;
 import com.aida.babyplus.modelo.entidades.Proveedor;
+import com.aida.babyplus.util.Parseador;
 
 /**
  *
@@ -36,7 +35,7 @@ public class ProveedorDAO implements Serializable {
         return this.emf.createEntityManager();
     }
     
-    public List<Proveedor> buscarPorId(Integer id) {
+    public Proveedor buscarPorId(Integer id) {
         EntityManager em = getEntityManager();
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -44,13 +43,15 @@ public class ProveedorDAO implements Serializable {
             Root<Proveedor> rt = cq.from(Proveedor.class);
             cq.where(cb.equal(rt.get("usuario"), id));
             Query q = em.createQuery(cq);
-            return q.getResultList();
+            return ((Proveedor) q.getSingleResult());
+        } catch (Exception e) {
+            return null;
         } finally {
             em.close();
         }
     }
 
-    public List<Proveedor> buscarPorCriterios(BusquedaProveedores criterios) {
+    public List<Proveedor> buscarPorCriteriosAdmin(Proveedor proveedorABuscar) {
         EntityManager em = getEntityManager();
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -58,16 +59,16 @@ public class ProveedorDAO implements Serializable {
             Root<Proveedor> rt = cq.from(Proveedor.class);
             List<Predicate> predicados = new ArrayList<>();
             
-            predicados.add(cb.like(rt.get("usuario1").get("usuario").as(String.class), criterios.getNombreUsuario()));
-            predicados.add(cb.like(rt.get("razonSocial").as(String.class), criterios.getRazonSocial()));
-            predicados.add(cb.like(rt.get("cif").as(String.class), criterios.getCif()));
+            predicados.add(cb.like(rt.get("usuario1").get("usuario").as(String.class), Parseador.aLike(proveedorABuscar.getUsuario1().getUsuario())));
+            predicados.add(cb.like(rt.get("razonSocial").as(String.class), Parseador.aLike(proveedorABuscar.getRazonSocial())));
+            predicados.add(cb.like(rt.get("cif").as(String.class), Parseador.aLike(proveedorABuscar.getCif())));
             
-            if(criterios.getActivo() != null) {
-                predicados.add(cb.equal(rt.get("usuario1").get("activo"), criterios.getActivo()));
+            if(proveedorABuscar.getUsuario1().getActivo() != null) {
+                predicados.add(cb.equal(rt.get("usuario1").get("activo"), proveedorABuscar.getUsuario1().getActivo()));
             }
             
-            if(criterios.getFechaAlta() != null) {
-                predicados.add(cb.greaterThanOrEqualTo(rt.get("usuario1").<java.util.Date>get("fechaAlta"), criterios.getFechaAlta()));
+            if(proveedorABuscar.getUsuario1().getFechaAlta() != null) {
+                predicados.add(cb.greaterThanOrEqualTo(rt.get("usuario1").<java.util.Date>get("fechaAlta"), proveedorABuscar.getUsuario1().getFechaAlta()));
             }
             
             cq.where(predicados.toArray(new Predicate[0]));
@@ -79,19 +80,19 @@ public class ProveedorDAO implements Serializable {
         }
     }
 
-    public Proveedor actualizarValoresComoAdmin(ActualizacionProveedores nuevosValores) {
+    public Proveedor actualizarValoresAdmin(Proveedor datosProveedor, String nuevoPassword) {
         EntityManager em = getEntityManager();
         try {
-            Proveedor proveedorGuardado = em.find(Proveedor.class, nuevosValores.getId());
+            Proveedor proveedorGuardado = em.find(Proveedor.class, datosProveedor.getUsuario());
             if (proveedorGuardado != null) {
                 em.getTransaction().begin();
-                proveedorGuardado.setRazonSocial(nuevosValores.getRazonSocial());
-                proveedorGuardado.setCif(nuevosValores.getCif());
-                proveedorGuardado.setDireccion(nuevosValores.getDireccion());
-                proveedorGuardado.setLocalidad(nuevosValores.getLocalidad());
-                proveedorGuardado.setCp(nuevosValores.getCp());
-                proveedorGuardado.setResponsable(nuevosValores.getResponsable());
-                proveedorGuardado.getUsuario1().setPassword(nuevosValores.getPassword());
+                proveedorGuardado.setRazonSocial(datosProveedor.getRazonSocial());
+                proveedorGuardado.setCif(datosProveedor.getCif());
+                proveedorGuardado.setDireccion(datosProveedor.getDireccion());
+                proveedorGuardado.setLocalidad(datosProveedor.getLocalidad());
+                proveedorGuardado.setCp(datosProveedor.getCp());
+                proveedorGuardado.setResponsable(datosProveedor.getResponsable());
+                proveedorGuardado.getUsuario1().setPassword(nuevoPassword);
                 em.getTransaction().commit();
                 return proveedorGuardado;
             }
@@ -110,6 +111,35 @@ public class ProveedorDAO implements Serializable {
             em.getTransaction().commit();
             return proveedor;
         }finally {
+            em.close();
+        }
+    }
+    
+    public List<Proveedor> buscarPorCriterios(Proveedor proveedor) {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Proveedor> cq = cb.createQuery(Proveedor.class);
+            Root<Proveedor> rt = cq.from(Proveedor.class);
+            List<Predicate> predicados = new ArrayList<>();
+            
+            if(proveedor.getRazonSocial() != null) {
+                predicados.add(cb.like(rt.get("razonSocial"), proveedor.getRazonSocial()));
+            }
+            
+            if(proveedor.getLocalidad()!= null) {
+                predicados.add(cb.like(rt.get("localidad"), proveedor.getLocalidad()));
+            }
+            
+            if(proveedor.getCp()!= null) {
+                predicados.add(cb.equal(rt.get("cp"), proveedor.getCp()));
+            }
+
+            cq.where(predicados.toArray(new Predicate[0]));
+            cq.orderBy(cb.asc(rt.get("usuario")));
+            Query q = em.createQuery(cq);
+            return q.getResultList();
+        } finally {
             em.close();
         }
     }
