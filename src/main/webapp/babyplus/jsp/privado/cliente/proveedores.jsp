@@ -21,12 +21,13 @@
                         <td>
                             <div>
                                 <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/accionesCliente">
-                                    <input type="hidden" id="idCliente" name="idCliente" value="${sessionScope.usuario.id}">
-                                    <input type="hidden" id="idProveedor" name="idProveedor" value="${proveedor.usuario}">
+                                    <input type="hidden" id="idOrigen" name="idOrigen" value="${sessionScope.usuario.id}">
+                                    <input type="hidden" id="idDestino" name="idDestino" value="${proveedor.usuario}">
+                                    <input type="hidden" id="nombreDestino" name="nombreDestino" value="${proveedor.razonSocial}">
                                     <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
                                     <input type="submit" name="verDetalle" value="<fmt:message key="cliente.gestion.boton.detalle"/>">
                                     <input type="submit" name="pedirCita" value="<fmt:message key="cliente.gestion.boton.cita"/>">
-                                    <input type="submit" name="enviarMensaje" value="<fmt:message key="cliente.gestion.boton.mensaje"/>">
+                                    <input type="submit" name="redactarMensaje" value="<fmt:message key="cliente.gestion.boton.mensaje"/>">
                                 </form>
                             </div>
                         </td>

@@ -31,7 +31,7 @@
                     </tr>
                     <tr>
                         <td><fmt:message key="proveedor.responsable"/></td>
-                        <td><${sessionScope.proveedor.responsable}</td>
+                        <td>${sessionScope.proveedor.responsable}</td>
                     </tr>
                     <tr>
                         <td><fmt:message key="proveedor.servicios"/></td>
@@ -39,11 +39,12 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="hidden" id="idCliente" name="idCliente" value="${sessionScope.usuario.id}">
-                            <input type="hidden" id="idProveedor" name="idProveedor" value="${sessionScope.proveedor.usuario}">
+                            <input type="hidden" id="idOrigen" name="idOrigen" value="${sessionScope.usuario.id}">
+                            <input type="hidden" id="idDestino" name="idDestino" value="${sessionScope.proveedor.usuario}">
+                            <input type="hidden" id="nombreDestino" name="nombreDestino" value="${sessionScope.proveedor.razonSocial}">
                             <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
                             <input type="submit" name="pedirCita" value="<fmt:message key="cliente.gestion.boton.cita"/>">
-                            <input type="submit" name="enviarMensaje" value="<fmt:message key="cliente.gestion.boton.mensaje"/>">
+                            <input type="submit" name="redactarMensaje" value="<fmt:message key="cliente.gestion.boton.mensaje"/>">
                         </td>
                     </tr>
                 </table>
