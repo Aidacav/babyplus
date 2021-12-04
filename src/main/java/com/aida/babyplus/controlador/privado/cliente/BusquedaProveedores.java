@@ -15,8 +15,8 @@ import javax.servlet.annotation.WebServlet;
  *
  * @author Aida
  */
-@WebServlet(name = "Buscar", urlPatterns = {"/babyplus/jsp/privado/cliente/buscar"})
-public class Buscar extends HttpServlet {
+@WebServlet(name = "BusquedaProveedores", urlPatterns = {"/babyplus/jsp/privado/cliente/busquedaProveedores"})
+public class BusquedaProveedores extends HttpServlet {
 
     private ServicioProveedores servicioProveedores;
     

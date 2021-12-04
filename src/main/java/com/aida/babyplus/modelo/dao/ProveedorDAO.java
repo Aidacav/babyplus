@@ -115,7 +115,7 @@ public class ProveedorDAO implements Serializable {
         }
     }
     
-    public List<Proveedor> buscarPorCriterios(Proveedor proveedor) {
+    public List<Proveedor> buscarPorCriteriosCliente(Proveedor proveedor) {
         EntityManager em = getEntityManager();
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -124,11 +124,11 @@ public class ProveedorDAO implements Serializable {
             List<Predicate> predicados = new ArrayList<>();
             
             if(proveedor.getRazonSocial() != null) {
-                predicados.add(cb.like(rt.get("razonSocial"), proveedor.getRazonSocial()));
+                predicados.add(cb.like(rt.get("razonSocial"), Parseador.aLike(proveedor.getRazonSocial())));
             }
             
             if(proveedor.getLocalidad()!= null) {
-                predicados.add(cb.like(rt.get("localidad"), proveedor.getLocalidad()));
+                predicados.add(cb.like(rt.get("localidad"), Parseador.aLike(proveedor.getLocalidad())));
             }
             
             if(proveedor.getCp()!= null) {

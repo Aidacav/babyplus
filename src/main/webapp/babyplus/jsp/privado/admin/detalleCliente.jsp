@@ -9,7 +9,7 @@
             <fmt:message key="configuracion.formato.fecha.combo"/>
         </c:set>
         <p>
-            <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/admin/accionesCliente">
+            <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/admin/administrarCliente">
                 <table>
                     <tr>
                         <td><fmt:message key="cliente.id"/></td>

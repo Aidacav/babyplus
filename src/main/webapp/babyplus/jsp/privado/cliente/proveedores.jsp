@@ -20,33 +20,13 @@
                         <td>${proveedor.direccion}, ${proveedor.cp}, ${proveedor.localidad}</td>
                         <td>
                             <div>
-                                <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/admin/accionesProveedor">
-                                    <input type="hidden" id="idCliente" name="idCliente" value="${proveedor.usuario}">
+                                <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/accionesCliente">
+                                    <input type="hidden" id="idCliente" name="idCliente" value="${sessionScope.usuario.id}">
+                                    <input type="hidden" id="idProveedor" name="idProveedor" value="${proveedor.usuario}">
                                     <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                                    <input type="submit" name="verDetalle" value="<fmt:message key="administrador.gestion.clientes.boton.ver.detalle"/>">
-                                    <c:choose>
-                                        <c:when test="${proveedor.usuario1.activo == true}">
-                                            <input type="submit" name="cambiarEstado" value="<fmt:message key="administrador.gestion.clientes.boton.desactivar"/>">
-                                        </c:when>
-                                        <c:otherwise>
-                                            <input type="submit" name="cambiarEstado" value="<fmt:message key="administrador.gestion.clientes.boton.activar"/>">
-                                        </c:otherwise>
-                                    </c:choose>
-                                </form>
-                            </div>
-                            <div>
-                                <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/admin/accionesProveedor">
-                                    <input type="hidden" id="idCliente" name="idCliente" value="${proveedor.usuario}">
-                                    <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                                    <input type="submit" name="verDetalle" value="<fmt:message key="administrador.gestion.clientes.boton.ver.detalle"/>">
-                                    <c:choose>
-                                        <c:when test="${proveedor.usuario1.activo == true}">
-                                            <input type="submit" name="cambiarEstado" value="<fmt:message key="administrador.gestion.clientes.boton.desactivar"/>">
-                                        </c:when>
-                                        <c:otherwise>
-                                            <input type="submit" name="cambiarEstado" value="<fmt:message key="administrador.gestion.clientes.boton.activar"/>">
-                                        </c:otherwise>
-                                    </c:choose>
+                                    <input type="submit" name="verDetalle" value="<fmt:message key="cliente.gestion.boton.detalle"/>">
+                                    <input type="submit" name="pedirCita" value="<fmt:message key="cliente.gestion.boton.cita"/>">
+                                    <input type="submit" name="enviarMensaje" value="<fmt:message key="cliente.gestion.boton.mensaje"/>">
                                 </form>
                             </div>
                         </td>

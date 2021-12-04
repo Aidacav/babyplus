@@ -8,7 +8,6 @@ package com.aida.babyplus.servicio;
 
 import java.util.List;
 import com.aida.babyplus.modelo.dao.ProveedorDAO;
-import com.aida.babyplus.modelo.entidades.Cliente;
 import com.aida.babyplus.modelo.entidades.Proveedor;
 import com.aida.babyplus.modelo.entidades.Usuario;
 import com.aida.babyplus.util.Parseador;
@@ -62,7 +61,7 @@ public class ServicioProveedores {
         Proveedor proveedorABuscar = aProveedor(request);
         // TODO: Añadir request.getParameter("servicioProveedor") para filtrar por servicios
 
-        return proveedorDAO.buscarPorCriterios(proveedorABuscar);
+        return proveedorDAO.buscarPorCriteriosCliente(proveedorABuscar);
     }
     
     private Proveedor aProveedor(HttpServletRequest request) {

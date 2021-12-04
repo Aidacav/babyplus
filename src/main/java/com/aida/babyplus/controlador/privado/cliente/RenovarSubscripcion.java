@@ -1,13 +1,7 @@
 package com.aida.babyplus.controlador.privado.cliente;
 
-import com.aida.babyplus.modelo.entidades.Usuario;
 import com.aida.babyplus.servicio.ServicioClientes;
-import com.aida.babyplus.servicio.ServicioProveedores;
-import com.aida.babyplus.servicio.ServicioUsuarios;
-import com.aida.babyplus.servicio.TipoUsuario;
-import com.aida.babyplus.util.Parseador;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

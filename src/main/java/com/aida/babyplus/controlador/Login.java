@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.aida.babyplus.modelo.entidades.Usuario;
 import com.aida.babyplus.servicio.ServicioLogin;
-import java.io.InvalidClassException;
 import javax.servlet.annotation.WebServlet;
 
 /**

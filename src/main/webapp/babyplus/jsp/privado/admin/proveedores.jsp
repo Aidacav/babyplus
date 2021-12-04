@@ -44,7 +44,7 @@
                         </td>
                         <td>
                             <div>
-                                <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/admin/accionesProveedor">
+                                <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/admin/administrarProveedor">
                                     <input type="hidden" id="id" name="id" value="${proveedor.usuario}">
                                     <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
                                     <input type="submit" name="verDetalle" value="<fmt:message key="administrador.gestion.clientes.boton.ver.detalle"/>">
