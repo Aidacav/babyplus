@@ -41,10 +41,9 @@
                         <td colspan="2">
                             <input type="hidden" id="idOrigen" name="idOrigen" value="${sessionScope.usuario.id}">
                             <input type="hidden" id="idDestino" name="idDestino" value="${sessionScope.proveedor.usuario}">
-                            <input type="hidden" id="nombreDestino" name="nombreDestino" value="${sessionScope.proveedor.razonSocial}">
                             <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
                             <input type="submit" name="pedirCita" value="<fmt:message key="cliente.gestion.boton.cita"/>">
-                            <input type="submit" name="redactarMensaje" value="<fmt:message key="cliente.gestion.boton.mensaje"/>">
+                            <input type="submit" name="verConversacion" value="<fmt:message key="mensajes.boton.enviar"/>">
                         </td>
                     </tr>
                 </table>

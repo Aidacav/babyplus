@@ -1,21 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.aida.babyplus.servicio;
 
 import com.aida.babyplus.modelo.dao.ClienteDAO;
 import com.aida.babyplus.modelo.dao.MensajeDAO;
 import com.aida.babyplus.modelo.dao.ProveedorDAO;
-import com.aida.babyplus.modelo.dao.UsuarioDAO;
 import com.aida.babyplus.modelo.entidades.Cliente;
 import com.aida.babyplus.modelo.entidades.Mensaje;
 import com.aida.babyplus.modelo.entidades.Proveedor;
-import com.aida.babyplus.modelo.entidades.Usuario;
 import com.aida.babyplus.util.Parseador;
 import java.time.Instant;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -32,6 +28,41 @@ public class ServicioMensajes {
         
         Mensaje mensajeAEnviar = aMensaje(request, tipoUsuario);
         return mensajeAEnviar != null && mensajeDAO.guardar(mensajeAEnviar) != null;
+    }
+
+    public Map<Integer, String> obtenerHistorico(Integer idUsuario, TipoUsuario tipo) throws Exception {
+        
+        List<Mensaje> listadoMensajes = mensajeDAO.buscarHistorico(idUsuario, tipo);
+        Map<Integer, String> historico = new HashMap<>();
+        
+        for(Mensaje mensaje : listadoMensajes) {
+            Integer id;
+            String nombre;
+            
+            switch(tipo) {
+                case CLIENTE:
+                    Proveedor proveedor = mensaje.getProveedor();
+                    id = proveedor.getUsuario();
+                    nombre = proveedor.getRazonSocial();
+                    break;
+                case PROVEEDOR:
+                    Cliente cliente = mensaje.getCliente();
+                    id = cliente.getUsuario();
+                    nombre = cliente.getNombre() + " " + cliente.getApellidos();
+                    break;
+                default:
+                    throw new Exception("Forzando Salida");
+            }
+            
+            
+            historico.putIfAbsent(id, nombre);
+        }
+        
+        return historico;
+    }
+    
+    public List<Mensaje> obtenerMensajes(Integer idCliente, Integer idProveedor) {
+        return mensajeDAO.buscarPorClienteYProveedor(idCliente, idProveedor);
     }
     
     private Mensaje aMensaje(HttpServletRequest request, TipoUsuario tipoUsuario) {

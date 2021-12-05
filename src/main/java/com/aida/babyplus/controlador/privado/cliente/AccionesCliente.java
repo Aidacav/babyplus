@@ -22,13 +22,11 @@ import javax.servlet.http.HttpSession;
 public class AccionesCliente extends HttpServlet {
     
     private ServicioProveedores servicioProveedores;
-    private ServicioMensajes servicioMensajes;
     
     @Override
     public void init() throws ServletException {
         super.init();
         servicioProveedores = new ServicioProveedores();
-        servicioMensajes = new ServicioMensajes();
     }
 
     @Override
@@ -36,15 +34,12 @@ public class AccionesCliente extends HttpServlet {
         
         boolean esVerDetalle = request.getParameter("verDetalle") != null;
         boolean esPedirCita = request.getParameter("pedirCita") != null;
-        boolean esRedactarMensaje = request.getParameter("redactarMensaje") != null;
-        boolean esEnviarMensaje = request.getParameter("enviarMensaje") != null;
+        boolean esEnviarMensaje = request.getParameter("verConversacion") != null;
         
         if (esVerDetalle) {
             verDetalleProveedor(request, response);
         } else if (esPedirCita) {
             pedirCitaAProveedor(request, response);
-        } else if (esRedactarMensaje) {
-            redactarMensaje(request, response);
         } else if (esEnviarMensaje) {
             enviarMensajeAProveedor(request, response);
         }else {
@@ -76,29 +71,8 @@ public class AccionesCliente extends HttpServlet {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    private void redactarMensaje(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        HttpSession session = request.getSession();
-        session.setAttribute("idDestino", request.getParameter("idDestino"));
-        session.setAttribute("nombreDestino", request.getParameter("nombreDestino"));
-        response.sendRedirect(request.getContextPath() + "/babyplus/jsp/privado/cliente/mensaje.jsp");
-    }
-    
     private void enviarMensajeAProveedor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        HttpSession session = request.getSession();
-
-        try {
-            if(servicioMensajes.enviarMensaje(request, TipoUsuario.CLIENTE)) {
-                session.setAttribute("mensaje", "cliente.gestion.mensaje.ok");
-            } else {
-                throw new Exception("Forzando salida");
-            }
-        } catch (Exception e) {
-            session.setAttribute("error", "cliente.gestion.mensaje.ko");
-        }
-        
-        response.sendRedirect(request.getParameter("origen"));
+        request.getRequestDispatcher(request.getContextPath() + "/babyplus/jsp/privado/gestorMensajes").forward(request, response);
     }
     
      private void devolverNoDisponible(HttpServletRequest request, HttpServletResponse response) throws IOException {

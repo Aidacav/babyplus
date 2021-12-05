@@ -32,7 +32,7 @@ public class Mensaje implements Serializable {
     @Column(name = "FECHA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
-    @Size(max = 500)
+    @Size(max = 255)
     @Column(name = "MENSAJE")
     private String mensaje;
     @JoinColumn(name = "CLIENTE", referencedColumnName = "USUARIO")

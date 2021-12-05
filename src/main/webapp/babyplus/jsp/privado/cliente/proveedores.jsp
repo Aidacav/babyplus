@@ -19,17 +19,14 @@
                         <td>${proveedor.razonSocial}</td>
                         <td>${proveedor.direccion}, ${proveedor.cp}, ${proveedor.localidad}</td>
                         <td>
-                            <div>
-                                <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/accionesCliente">
-                                    <input type="hidden" id="idOrigen" name="idOrigen" value="${sessionScope.usuario.id}">
-                                    <input type="hidden" id="idDestino" name="idDestino" value="${proveedor.usuario}">
-                                    <input type="hidden" id="nombreDestino" name="nombreDestino" value="${proveedor.razonSocial}">
-                                    <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                                    <input type="submit" name="verDetalle" value="<fmt:message key="cliente.gestion.boton.detalle"/>">
-                                    <input type="submit" name="pedirCita" value="<fmt:message key="cliente.gestion.boton.cita"/>">
-                                    <input type="submit" name="redactarMensaje" value="<fmt:message key="cliente.gestion.boton.mensaje"/>">
-                                </form>
-                            </div>
+                            <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/accionesCliente">
+                                <input type="hidden" id="idOrigen" name="idOrigen" value="${sessionScope.usuario.id}">
+                                <input type="hidden" id="idDestino" name="idDestino" value="${proveedor.usuario}">
+                                <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
+                                <input type="submit" name="verDetalle" value="<fmt:message key="cliente.gestion.boton.detalle"/>">
+                                <input type="submit" name="pedirCita" value="<fmt:message key="cliente.gestion.boton.cita"/>">
+                                <input type="submit" name="verConversacion" value="<fmt:message key="mensajes.boton.enviar"/>">
+                            </form>
                         </td>
                     </tr>
                </c:forEach>
