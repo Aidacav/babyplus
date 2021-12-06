@@ -47,7 +47,7 @@
                                 <input type="hidden" id="idOrigen" name="idOrigen" value="${sessionScope.usuario.id}">
                                 <input type="hidden" id="idDestino" name="idDestino" value="${sessionScope.idDestino}">
                                 <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                                <input type="submit" name="enviarMensaje" value="<fmt:message key="mensajes.boton.enviar"/>">
+                                <input type="submit" class="botonUnico" name="enviarMensaje" value="<fmt:message key="mensajes.boton.enviar"/>">
                             </td>
                         </tr>
                     </table>

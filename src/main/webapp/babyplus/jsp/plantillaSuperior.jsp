@@ -29,6 +29,7 @@
                             <a href="${pageContext.request.contextPath}/babyplus/jsp/privado/gestorMensajes?origen=${pageContext.request.requestURI}"><fmt:message key="index.nav.admin.mensajes"/></a>
                         </c:when>
                         <c:otherwise>
+                            <a href="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/accionesCliente?origen=${pageContext.request.requestURI}"><fmt:message key="index.nav.admin.perfil"/></a>
                             <a href="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/proveedores.jsp"><fmt:message key="index.nav.admin.proveedores"/></a>
                             <a href="${pageContext.request.contextPath}/babyplus/jsp/privado/gestorMensajes?origen=${pageContext.request.requestURI}"><fmt:message key="index.nav.admin.mensajes"/></a>
                         </c:otherwise>

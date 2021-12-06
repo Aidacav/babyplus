@@ -53,7 +53,7 @@ footer {
 }
 
 .topnav a:hover {
-    background-color: #3CB371;
+    background-color: paleturquoise;
     color: black;
 }
 
@@ -100,8 +100,12 @@ table, tr, th, td {
     border: 1px solid black;
 }
 
-td>input {
-    width: 99%;
+td>input:not([type=submit]) {
+    width: 98%;
+}
+
+.botonUnico {
+    width: 100%;
 }
 
 textarea {

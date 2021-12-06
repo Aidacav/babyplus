@@ -96,7 +96,7 @@ public class AdministrarCliente extends HttpServlet {
         try {
             Cliente clienteAModificar = servicioClientes.buscarPorid(idCliente);
             if (clienteAModificar != null) {
-                Cliente clienteModificado = servicioClientes.actualizarClienteAdmin(request);
+                Cliente clienteModificado = servicioClientes.actualizarCliente(request);
                 session.setAttribute("mensaje", "administrador.gestion.clientes.accion.actualizar.ok");
                 session.setAttribute("cliente", clienteModificado);
             } else {

@@ -13,6 +13,7 @@ import com.aida.babyplus.modelo.entidades.Cliente;
 import com.aida.babyplus.modelo.entidades.ClienteSubscripcion;
 import com.aida.babyplus.modelo.entidades.Subscripcion;
 import com.aida.babyplus.modelo.entidades.Usuario;
+import com.aida.babyplus.modelo.entidades.Paciente;
 import com.aida.babyplus.util.Parseador;
 import java.time.Instant;
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -53,11 +54,11 @@ public class ServicioClientes {
         return clienteDAO.buscarPorCriteriosAdmin(clienteABuscar);
     }
 
-    public Cliente actualizarClienteAdmin(HttpServletRequest request) {
+    public Cliente actualizarCliente(HttpServletRequest request) {
         
         Cliente datosCliente = aCliente(request);
         String nuevoPassword = request.getParameter("password");
-        return clienteDAO.actualizarValoresAdmin(datosCliente, nuevoPassword);
+        return clienteDAO.actualizarCliente(datosCliente, nuevoPassword);
     }
 
     public Cliente crearCliente(Usuario nuevoUsuario, HttpServletRequest request) {
@@ -100,16 +101,32 @@ public class ServicioClientes {
         return false;
     }
     
+    public Cliente agregarPaciente(HttpServletRequest request) {
+        
+        Paciente nuevoPaciente = aPaciente(request);
+        return nuevoPaciente == null ? null : clienteDAO.agregarPaciente(nuevoPaciente);
+    }
+    
+    public Cliente actualizarPaciente(HttpServletRequest request) {
+        
+        Paciente datosPaciente = aPaciente(request);
+        return datosPaciente == null ? null : clienteDAO.actualizarPaciente(datosPaciente);
+    }
+    
+    public Cliente eliminarPaciente(HttpServletRequest request) {
+        
+        Paciente datosPaciente = aPaciente(request);
+        return datosPaciente == null ? null : clienteDAO.eliminarPaciente(datosPaciente);
+    }
+    
     private Cliente aCliente(HttpServletRequest request) {
         
         Usuario usuario = new Usuario();
-        
         usuario.setUsuario(request.getParameter("usuario"));
         usuario.setActivo(Parseador.aBoolean(request.getParameter("activo")));
         usuario.setFechaAlta(Parseador.aFecha(request.getParameter("fechaAlta")));
         
         Cliente cliente = new Cliente();
-        
         cliente.setUsuario(Parseador.aNumero(request.getParameter("id")));
         cliente.setNombre(request.getParameter("nombre"));
         cliente.setApellidos(request.getParameter("apellidos"));
@@ -120,5 +137,27 @@ public class ServicioClientes {
         cliente.setUsuario1(usuario);
 
         return cliente;
+    }
+    
+    private Paciente aPaciente(HttpServletRequest request) {
+        
+        Usuario usuario = ((Usuario)request.getSession().getAttribute("usuario"));
+        
+        if(usuario == null) {
+            return null;
+        }
+        
+        Cliente cliente = new Cliente();
+        cliente.setUsuario(usuario.getId());
+        cliente.setUsuario1(usuario);
+
+        Paciente paciente = new Paciente();
+        paciente.setCliente(cliente);
+        paciente.setId(Parseador.aNumero(request.getParameter("idPaciente")));
+        paciente.setNombre(request.getParameter("nombre"));
+        paciente.setFechaNacimiento(Parseador.aFecha(request.getParameter("fechaNacimiento")));
+        paciente.setObservaciones(request.getParameter("observaciones"));
+        
+        return paciente;
     }
 }

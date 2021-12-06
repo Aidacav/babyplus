@@ -66,6 +66,8 @@ public class Cliente implements Serializable {
     private Usuario usuario1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
     private Collection<ClienteSubscripcion> subscripciones;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private Collection<Paciente> hijos;
 
     public Cliente() {
     }
@@ -155,6 +157,12 @@ public class Cliente implements Serializable {
     public void setSubscripciones(Collection<ClienteSubscripcion> subscripciones) {
         this.subscripciones = subscripciones;
     }
-    
-    
+
+    public Collection<Paciente> getHijos() {
+        return hijos;
+    }
+
+    public void setHijos(Collection<Paciente> hijos) {
+        this.hijos = hijos;
+    }
 }

@@ -18,7 +18,10 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import com.aida.babyplus.modelo.entidades.Cliente;
 import com.aida.babyplus.modelo.entidades.ClienteSubscripcion;
+import com.aida.babyplus.modelo.entidades.Paciente;
 import com.aida.babyplus.util.Parseador;
+import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  *
@@ -81,7 +84,7 @@ public class ClienteDAO implements Serializable {
         }
     }
 
-    public Cliente actualizarValoresAdmin(Cliente datosCliente, String nuevoPassword) {
+    public Cliente actualizarCliente(Cliente datosCliente, String nuevoPassword) {
         EntityManager em = getEntityManager();
         try {
             Cliente clienteGuardado = em.find(Cliente.class, datosCliente.getUsuario());
@@ -123,6 +126,71 @@ public class ClienteDAO implements Serializable {
             if (clienteGuardado != null) {
                 em.getTransaction().begin();
                 clienteGuardado.getSubscripciones().add(subscripcion);
+                em.getTransaction().commit();
+                return clienteGuardado;
+            }
+        } finally {
+            em.close();
+        }
+
+        return null;
+    }
+
+    public Cliente agregarPaciente(Paciente nuevoHijo) {
+        EntityManager em = getEntityManager();
+        try {
+            Cliente clienteGuardado = em.find(Cliente.class, nuevoHijo.getCliente().getUsuario());
+            if (clienteGuardado != null) {
+                em.getTransaction().begin();
+                clienteGuardado.getHijos().add(nuevoHijo);
+                em.getTransaction().commit();
+                return clienteGuardado;
+            }
+        } finally {
+            em.close();
+        }
+
+        return null;
+    }
+
+    public Cliente actualizarPaciente(Paciente datosHijo) {
+        EntityManager em = getEntityManager();
+        try {
+            Cliente clienteGuardado = em.find(Cliente.class, datosHijo.getCliente().getUsuario());
+            if (clienteGuardado != null) {
+                em.getTransaction().begin();
+                for(Paciente hijo : clienteGuardado.getHijos()) {
+                    if(hijo.getId().equals(datosHijo.getId())) {
+                        hijo.setNombre(datosHijo.getNombre());
+                        hijo.setFechaNacimiento(datosHijo.getFechaNacimiento());
+                        hijo.setObservaciones(datosHijo.getObservaciones());
+                        break;
+                    }
+                }
+                em.getTransaction().commit();
+                return clienteGuardado;
+            }
+        } finally {
+            em.close();
+        }
+
+        return null;
+    }
+
+    public Cliente eliminarPaciente(Paciente datosHijo) {
+        EntityManager em = getEntityManager();
+        try {
+            Cliente clienteGuardado = em.find(Cliente.class, datosHijo.getCliente().getUsuario());
+            if (clienteGuardado != null) {
+                em.getTransaction().begin();
+                Collection<Paciente> restantes = new LinkedList<>();
+                for(Paciente hijo : clienteGuardado.getHijos()) {
+                    if(!hijo.getId().equals(datosHijo.getId())) {
+                        restantes.add(hijo);
+                    }
+                }
+                clienteGuardado.getHijos().clear();
+                clienteGuardado.getHijos().addAll(restantes);
                 em.getTransaction().commit();
                 return clienteGuardado;
             }

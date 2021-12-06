@@ -14,7 +14,7 @@
                             <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/gestorMensajes">
                                 <input type="hidden" id="idDestino" name="idDestino" value="${mensaje.key}">
                                 <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                                <input type="submit" name="verConversacion" value="<fmt:message key="mensajes.boton.ver.conversacion"/>">
+                                <input type="submit" class="botonUnico" name="verConversacion" value="<fmt:message key="mensajes.boton.ver.conversacion"/>">
                             </form>
                         </td>
                     </tr>
