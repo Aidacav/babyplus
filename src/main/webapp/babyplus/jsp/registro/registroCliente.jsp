@@ -51,7 +51,7 @@
                 <tr>
                     <td colspan="2">
                         <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                        <input type="submit" name="registrarCliente" value="<fmt:message key="registro.registrar.cliente"/>">
+                        <input type="submit" class="botonUnico" name="registrarCliente" value="<fmt:message key="registro.registrar.cliente"/>">
                     </td>
                 </tr>
             </table>

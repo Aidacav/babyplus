@@ -26,6 +26,7 @@
                             <a href="${pageContext.request.contextPath}/babyplus/jsp/privado/admin/proveedores.jsp"><fmt:message key="index.nav.admin.proveedores"/></a>
                         </c:when>
                         <c:when test="${sessionScope.usuario.rol.descripcion == 'PROVEEDOR'}">
+                            <a href="${pageContext.request.contextPath}/babyplus/jsp/privado/proveedor/accionesProveedor?origen=${pageContext.request.requestURI}"><fmt:message key="index.nav.admin.perfil"/></a>
                             <a href="${pageContext.request.contextPath}/babyplus/jsp/privado/gestorMensajes?origen=${pageContext.request.requestURI}"><fmt:message key="index.nav.admin.mensajes"/></a>
                         </c:when>
                         <c:otherwise>

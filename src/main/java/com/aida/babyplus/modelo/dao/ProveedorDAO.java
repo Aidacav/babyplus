@@ -17,7 +17,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import com.aida.babyplus.modelo.entidades.Proveedor;
+import com.aida.babyplus.modelo.entidades.ProveedorServicio;
 import com.aida.babyplus.util.Parseador;
+import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  *
@@ -80,7 +83,7 @@ public class ProveedorDAO implements Serializable {
         }
     }
 
-    public Proveedor actualizarValoresAdmin(Proveedor datosProveedor, String nuevoPassword) {
+    public Proveedor actualizarValores(Proveedor datosProveedor, String nuevoPassword) {
         EntityManager em = getEntityManager();
         try {
             Proveedor proveedorGuardado = em.find(Proveedor.class, datosProveedor.getUsuario());
@@ -142,5 +145,69 @@ public class ProveedorDAO implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+    public Proveedor agregarServicio(ProveedorServicio nuevoServicio) {
+        EntityManager em = getEntityManager();
+        try {
+            Proveedor proveedorGuardado = em.find(Proveedor.class, nuevoServicio.getProveedor().getUsuario());
+            if (proveedorGuardado != null) {
+                em.getTransaction().begin();
+                proveedorGuardado.getServicios().add(nuevoServicio);
+                em.getTransaction().commit();
+                return proveedorGuardado;
+            }
+        } finally {
+            em.close();
+        }
+
+        return null;
+    }
+
+    public Proveedor actualizarServicio(ProveedorServicio datosServicio) {
+        EntityManager em = getEntityManager();
+        try {
+            Proveedor proveedorGuardado = em.find(Proveedor.class, datosServicio.getProveedor().getUsuario());
+            if (proveedorGuardado != null) {
+                em.getTransaction().begin();
+                for(ProveedorServicio servicio : proveedorGuardado.getServicios()) {
+                    if(servicio.getId().equals(datosServicio.getId())) {
+                        servicio.setPrecio(datosServicio.getPrecio());
+                        servicio.setDescripcion(datosServicio.getDescripcion());
+                        break;
+                    }
+                }
+                em.getTransaction().commit();
+                return proveedorGuardado;
+            }
+        } finally {
+            em.close();
+        }
+
+        return null;
+    }
+
+    public Proveedor eliminarServicio(ProveedorServicio datosServicio) {
+        EntityManager em = getEntityManager();
+        try {
+            Proveedor proveedorGuardado = em.find(Proveedor.class, datosServicio.getProveedor().getUsuario());
+            if (proveedorGuardado != null) {
+                em.getTransaction().begin();
+                Collection<ProveedorServicio> restantes = new LinkedList<>();
+                for(ProveedorServicio servicio : proveedorGuardado.getServicios()) {
+                    if(!servicio.getId().equals(datosServicio.getId())) {
+                        restantes.add(servicio);
+                    }
+                }
+                proveedorGuardado.getServicios().clear();
+                proveedorGuardado.getServicios().addAll(restantes);
+                em.getTransaction().commit();
+                return proveedorGuardado;
+            }
+        } finally {
+            em.close();
+        }
+
+        return null;
     }
 }

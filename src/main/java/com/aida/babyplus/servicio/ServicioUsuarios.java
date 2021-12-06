@@ -30,6 +30,10 @@ public class ServicioUsuarios {
         return usuarioDAO.buscarPorUsuario(usuario) != null;
     }
     
+    public void borrarUsuario(Integer id) {
+        usuarioDAO.borrar(id);
+    }
+    
     public Usuario creaNuevoUsuario(HttpServletRequest request, TipoUsuario tipoUsuario) {
         
         Rol rol = rolDAO.buscarPorDescripcion(tipoUsuario.toString());

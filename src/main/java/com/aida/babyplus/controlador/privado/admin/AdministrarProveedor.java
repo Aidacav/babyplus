@@ -96,7 +96,7 @@ public class AdministrarProveedor extends HttpServlet {
         try {
             Proveedor proveedorAModificar = servicioProveedores.buscarPorid(idProveedor);
             if (proveedorAModificar != null) {
-                Proveedor proveedorModificado = servicioProveedores.actualizarClienteAdmin(request);
+                Proveedor proveedorModificado = servicioProveedores.actualizarProveedor(request);
                 session.setAttribute("mensaje", "administrador.gestion.proveedores.accion.actualizar.ok");
                 session.setAttribute("proveedor", proveedorModificado);
             } else {

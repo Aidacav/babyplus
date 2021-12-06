@@ -5,8 +5,10 @@ import com.aida.babyplus.servicio.ServicioClientes;
 import com.aida.babyplus.servicio.ServicioProveedores;
 import com.aida.babyplus.servicio.ServicioUsuarios;
 import com.aida.babyplus.servicio.TipoUsuario;
+import com.aida.babyplus.util.Parseador;
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +20,11 @@ import javax.servlet.http.HttpSession;
  * @author Aida
  */
 @WebServlet(name = "Registrar", urlPatterns = {"/registrar"})
+@MultipartConfig(
+  fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+  maxFileSize = 1024 * 1024 * 10,      // 10 MB
+  maxRequestSize = 1024 * 1024 * 100   // 100 MB
+)
 public class Registrar extends HttpServlet {
     
     private ServicioClientes servicioClientes;
@@ -42,7 +49,8 @@ public class Registrar extends HttpServlet {
         if (esRegistroCliente) {
             registraCliente(request, response);
         } else if (esRegistroProveedor) {
-            registraProveedor(request, response);
+            byte[] logo = Parseador.aImagenEscalada(request.getPart("logo"));
+            registraProveedor(request, response, logo);
         } else {
             devolverNoDisponible(request, response);
         }
@@ -54,11 +62,15 @@ public class Registrar extends HttpServlet {
 
         try {
             boolean usuarioExiste = servicioUsuarios.existeUsuario(request.getParameter("usuario"));
+            Usuario nuevoUsuario = null;
             if (! usuarioExiste) {
-                Usuario nuevoUsuario = servicioUsuarios.creaNuevoUsuario(request, TipoUsuario.CLIENTE);
+                nuevoUsuario = servicioUsuarios.creaNuevoUsuario(request, TipoUsuario.CLIENTE);
                 servicioClientes.crearCliente(nuevoUsuario, request);
                 session.setAttribute("mensaje", "registro.registrar.ok");
             } else {
+                if(nuevoUsuario != null) {
+                    servicioUsuarios.borrarUsuario(nuevoUsuario.getId());
+                }
                 session.setAttribute("error", "registro.registrar.error");
             }
         } catch (Exception e) {
@@ -68,17 +80,21 @@ public class Registrar extends HttpServlet {
         response.sendRedirect(request.getParameter("origen"));
     }
     
-    private void registraProveedor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void registraProveedor(HttpServletRequest request, HttpServletResponse response, byte[] logo) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
 
         try {
             boolean usuarioExiste = servicioUsuarios.existeUsuario(request.getParameter("usuario"));
+            Usuario nuevoUsuario = null;
             if (! usuarioExiste) {
-                Usuario nuevoUsuario = servicioUsuarios.creaNuevoUsuario(request, TipoUsuario.PROVEEDOR);
-                servicioProveedores.crearProveedor(nuevoUsuario, request);
+                nuevoUsuario = servicioUsuarios.creaNuevoUsuario(request, TipoUsuario.PROVEEDOR);
+                servicioProveedores.crearProveedor(nuevoUsuario, logo, request);
                 session.setAttribute("mensaje", "registro.registrar.ok");
             } else {
+                if(nuevoUsuario != null) {
+                    servicioUsuarios.borrarUsuario(nuevoUsuario.getId());
+                }
                 session.setAttribute("error", "registro.registrar.error");
             }
         } catch (Exception e) {

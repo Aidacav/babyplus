@@ -100,9 +100,10 @@ table, tr, th, td {
     border: 1px solid black;
 }
 
-td>input:not([type=submit]) {
+td>input:not([type=submit]), td>select {
     width: 98%;
 }
+
 
 .botonUnico {
     width: 100%;

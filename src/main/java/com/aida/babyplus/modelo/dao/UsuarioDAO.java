@@ -90,4 +90,18 @@ public class UsuarioDAO implements Serializable {
             em.close();
         }
     }
+
+    public void borrar(Integer id) {
+        EntityManager em = getEntityManager();
+        try {
+            Usuario usuarioGuardado = em.find(Usuario.class, id);
+            if (usuarioGuardado != null) {
+                em.getTransaction().begin();
+                em.remove(usuarioGuardado);
+                em.getTransaction().commit();
+            }
+        } finally {
+            em.close();
+        }
+    }
 }

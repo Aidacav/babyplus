@@ -5,7 +5,7 @@
 <fmt:setBundle basename="mensajes"/>
 <div class="contenedor">
     <p>
-        <form method="post" action="${pageContext.request.contextPath}/registrar">
+        <form method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/registrar">
             <table>
                 <tr>
                     <td><fmt:message key="proveedor.nombre.usuario"/></td>
@@ -41,7 +41,7 @@
                 </tr>
                 <tr>
                     <td><fmt:message key="proveedor.logo"/></td>
-                    <td><input type="file" id="logo" name="logo" accept="image/png, image/jpeg"/></td>
+                    <td><input type="file" id="logo" name="logo" accept="image/png, image/jpeg" required="true"/></td>
                 </tr>
                 <tr>
                     <td><fmt:message key="cliente.idioma"/></td>
@@ -55,7 +55,7 @@
                 <tr>
                     <td colspan="2">
                         <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                        <input type="submit" name="registrarProveedor" value="<fmt:message key="registro.registrar.cliente"/>">
+                        <input type="submit" class="botonUnico" name="registrarProveedor" value="<fmt:message key="registro.registrar.proveedor"/>">
                     </td>
                 </tr>
             </table>

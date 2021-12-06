@@ -1,7 +1,9 @@
 package com.aida.babyplus.modelo.dao;
 
-import com.aida.babyplus.modelo.entidades.Subscripcion;
+import com.aida.babyplus.modelo.entidades.Servicio;
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -14,11 +16,11 @@ import javax.persistence.criteria.Root;
  *
  * @author Aida
  */
-public class SubscripcionDAO implements Serializable {
+public class ServicioDAO implements Serializable {
 
     private EntityManagerFactory emf = null;
     
-    public SubscripcionDAO() {
+    public ServicioDAO() {
         this.emf = Persistence.createEntityManagerFactory("babyplusPU");
     }
     
@@ -26,17 +28,16 @@ public class SubscripcionDAO implements Serializable {
         return this.emf.createEntityManager();
     }
 
-    public Subscripcion buscarPorNombre(String nombre) {
+    public List<Servicio> buscarTodos() {
         EntityManager em = getEntityManager();
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Subscripcion> cq = cb.createQuery(Subscripcion.class);
-            Root<Subscripcion> rt = cq.from(Subscripcion.class);
-            cq.where(cb.equal(rt.get("nombre"), nombre.toUpperCase()));
+            CriteriaQuery<Servicio> cq = cb.createQuery(Servicio.class);
+            Root<Servicio> rt = cq.from(Servicio.class);
             Query q = em.createQuery(cq);
-            return ((Subscripcion) q.getSingleResult());
+            return q.getResultList();
         } catch (Exception e) {
-            return null;
+            return new LinkedList<>();
         } 
         finally {
             em.close();

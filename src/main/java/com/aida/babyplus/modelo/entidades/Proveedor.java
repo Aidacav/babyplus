@@ -1,12 +1,15 @@
 package com.aida.babyplus.modelo.entidades;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -60,6 +63,8 @@ public class Proveedor implements Serializable {
     @JoinColumn(name = "USUARIO", referencedColumnName = "ID", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Usuario usuario1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "proveedor")
+    private Collection<ProveedorServicio> servicios;
 
     public Proveedor() {
     }
@@ -148,5 +153,13 @@ public class Proveedor implements Serializable {
 
     public void setUsuario1(Usuario usuario1) {
         this.usuario1 = usuario1;
+    }
+
+    public Collection<ProveedorServicio> getServicios() {
+        return servicios;
+    }
+
+    public void setServicios(Collection<ProveedorServicio> servicios) {
+        this.servicios = servicios;
     }
 }

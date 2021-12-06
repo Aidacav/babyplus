@@ -21,6 +21,7 @@
         <javax.validation.version>2.0.1.Final</javax.validation.version>
         
         <jstl.version>1.2</jstl.version>
+        <apache.commons.version>2.11.0</apache.commons.version>
         
         <mysql.version>8.0.27</mysql.version>
     </properties>
@@ -73,6 +74,12 @@
             <artifactId>javaee-web-api</artifactId>
             <version>${javax.javaee.version}</version>
             <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${apache.commons.version}</version>
         </dependency>
         
         <dependency>
