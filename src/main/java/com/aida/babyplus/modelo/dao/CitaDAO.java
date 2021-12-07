@@ -5,16 +5,10 @@
  */
 package com.aida.babyplus.modelo.dao;
 
-import com.aida.babyplus.modelo.entidades.Rol;
-import com.aida.babyplus.modelo.entidades.Solicitud;
 import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 /**
  *
