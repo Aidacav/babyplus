@@ -27,6 +27,17 @@ public class ServicioDAO implements Serializable {
     public EntityManager getEntityManager() {
         return this.emf.createEntityManager();
     }
+    
+    public Servicio buscarPorId(Integer idServicio) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.find(Servicio.class, idServicio);
+        } catch (Exception e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
 
     public List<Servicio> buscarTodos() {
         EntityManager em = getEntityManager();

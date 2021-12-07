@@ -73,6 +73,7 @@
                         <td>
                             <input type="hidden" id="idServicio" name="idServicio" value="${servicio.id}">
                             <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
+                            <input type="hidden" id="tipo" name="tipo" value="${servicio.servicio.id}"/>
                             <input type="submit" name="modificarServicio" value="<fmt:message key="boton.actualizar"/>">
                             <input type="submit" name="eliminarServicio" value="<fmt:message key="boton.eliminar"/>">
                         </td>
@@ -82,9 +83,9 @@
                 <tr>
                     <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/proveedor/accionesProveedor">
                         <td>
-                            <select id="tipo" name="tipo">
-                                <c:forEach var="tipo" items="${sessionScope.catalogoServicios}">
-                                    <option value="${tipo.id}">${tipo.descripcion}</option>
+                            <select id="tipo" name="tipo" required="true">
+                                <c:forEach var="tipoCatalogo" items="${sessionScope.catalogoServicios}">
+                                    <option value="${tipoCatalogo.id}">${tipoCatalogo.descripcion}</option>
                                 </c:forEach>
                             </select>
                         </td>
@@ -98,7 +99,6 @@
                 </tr>
             </table>
             <% session.removeAttribute("proveedor"); %>
-            <% session.removeAttribute("catalogoServicios"); %>
         </p>
     </c:if>
     <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/mensajes.jsp"/>

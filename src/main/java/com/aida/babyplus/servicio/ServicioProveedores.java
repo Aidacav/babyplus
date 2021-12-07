@@ -59,9 +59,23 @@ public class ServicioProveedores {
     public List<Proveedor> buscarPorCriteriosCliente(HttpServletRequest request) {
         
         Proveedor proveedorABuscar = aProveedor(request);
-        // TODO: Añadir request.getParameter("servicioProveedor") para filtrar por servicios
+        List<Proveedor> proveedores = proveedorDAO.buscarPorCriteriosCliente(proveedorABuscar);
+        Integer tipoServicioSeleccionado = Parseador.aNumero(request.getParameter("servicio"));
+        
+        if(tipoServicioSeleccionado != 0) {
+            List<Proveedor> proveedoresConServicio = new LinkedList<>();
+            for(Proveedor posible : proveedores) {
+                for(ProveedorServicio servicio : posible.getServicios()) {
+                    if(servicio.getServicio().getId() == tipoServicioSeleccionado) {
+                        proveedoresConServicio.add(posible);
+                        break;
+                    }
+                }
+            }
+            return proveedoresConServicio;
+        }
 
-        return proveedorDAO.buscarPorCriteriosCliente(proveedorABuscar);
+        return proveedores;
     }
     
     public List<Servicio> buscarListadoServicios() {
@@ -109,19 +123,15 @@ public class ServicioProveedores {
     
     private ProveedorServicio aProveedorServicio(HttpServletRequest request) {
         
-        Usuario usuario = ((Usuario)request.getSession().getAttribute("usuario"));
-        Integer tipoServicio = Parseador.aNumero(request.getParameter("tipo"));
+        Integer idProveedor = ((Usuario)request.getSession().getAttribute("usuario")).getId();
+        Integer idServicioBase = Parseador.aNumero(request.getParameter("tipo"));
         
-        if(usuario == null || tipoServicio == null) {
+        Proveedor proveedor = proveedorDAO.buscarPorId(idProveedor);
+        Servicio servicioBase = servicioDAO.buscarPorId(idServicioBase);
+        
+        if(proveedor == null || servicioBase == null) {
             return null;
         }
-        
-        Proveedor proveedor = new Proveedor();
-        proveedor.setUsuario(usuario.getId());
-        proveedor.setUsuario1(usuario);
-        
-        Servicio servicioBase = new Servicio();
-        servicioBase.setId(tipoServicio);
 
         ProveedorServicio servicio = new ProveedorServicio();
         servicio.setProveedor(proveedor);

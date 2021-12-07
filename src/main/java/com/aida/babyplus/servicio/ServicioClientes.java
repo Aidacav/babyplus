@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.aida.babyplus.servicio;
 
 
@@ -141,16 +136,13 @@ public class ServicioClientes {
     
     private Paciente aPaciente(HttpServletRequest request) {
         
-        Usuario usuario = ((Usuario)request.getSession().getAttribute("usuario"));
+        Integer idCliente = ((Usuario)request.getSession().getAttribute("usuario")).getId();
+        Cliente cliente = clienteDAO.buscarPorId(idCliente);
         
-        if(usuario == null) {
+        if(cliente == null) {
             return null;
         }
         
-        Cliente cliente = new Cliente();
-        cliente.setUsuario(usuario.getId());
-        cliente.setUsuario1(usuario);
-
         Paciente paciente = new Paciente();
         paciente.setCliente(cliente);
         paciente.setId(Parseador.aNumero(request.getParameter("idPaciente")));

@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.idioma}"/>
 <fmt:setBundle basename="mensajes"/>
@@ -10,8 +11,13 @@
             <input type="text" id="localidad" name="localidad">
             <label for="cpProveedor"><fmt:message key="cliente.buscador.cp"/></label>
             <input type="number" min="10000" max="99999" id="cp" name="cp">
-            <label for="servicioProveedor"><fmt:message key="cliente.buscador.servicio"/></label>
-            <input type="text" id="servicio" name="servicio">
+            <label for="servicio"><fmt:message key="cliente.buscador.servicio"/></label>
+            <select id="servicio" name="servicio">
+                <option value="0" selected="selected"/>
+                <c:forEach var="tipoCatalogo" items="${sessionScope.catalogoServicios}">
+                    <option value="${tipoCatalogo.id}">${tipoCatalogo.descripcion}</option>
+                </c:forEach>
+            </select>
             <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
             <input type="submit" value="<fmt:message key="cliente.buscador.boton"/>">
         </form>

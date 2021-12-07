@@ -1,13 +1,10 @@
 package com.aida.babyplus.controlador.privado.proveedor;
 
-import com.aida.babyplus.modelo.entidades.Cliente;
 import com.aida.babyplus.modelo.entidades.Proveedor;
-import com.aida.babyplus.modelo.entidades.Servicio;
 import com.aida.babyplus.modelo.entidades.Usuario;
 import com.aida.babyplus.servicio.ServicioClientes;
 import com.aida.babyplus.servicio.ServicioProveedores;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,9 +38,7 @@ public class AccionesProveedor extends HttpServlet {
             Usuario usuario = ((Usuario)session.getAttribute("usuario"));
             Proveedor proveedor = servicioProveedores.buscarPorid(usuario.getId());
             if(proveedor != null) {
-                List<Servicio> catalogoServicios = servicioProveedores.buscarListadoServicios();
                 session.setAttribute("proveedor", proveedor);
-                session.setAttribute("catalogoServicios", catalogoServicios);
                 response.sendRedirect(request.getContextPath() + "/babyplus/jsp/privado/proveedor/perfil.jsp");
             } else {
                 throw new Exception("Forzando Salida");
