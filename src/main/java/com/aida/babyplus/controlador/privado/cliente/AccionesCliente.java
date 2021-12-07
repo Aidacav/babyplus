@@ -2,7 +2,9 @@ package com.aida.babyplus.controlador.privado.cliente;
 
 import com.aida.babyplus.modelo.entidades.Cliente;
 import com.aida.babyplus.modelo.entidades.Proveedor;
+import com.aida.babyplus.modelo.entidades.Solicitud;
 import com.aida.babyplus.modelo.entidades.Usuario;
+import com.aida.babyplus.servicio.ServicioCitas;
 import com.aida.babyplus.servicio.ServicioClientes;
 import com.aida.babyplus.servicio.ServicioProveedores;
 import com.aida.babyplus.util.Parseador;
@@ -23,13 +25,15 @@ import javax.servlet.http.HttpSession;
 public class AccionesCliente extends HttpServlet {
     
     private ServicioProveedores servicioProveedores;
-    private ServicioClientes servicioClientes; 
+    private ServicioClientes servicioClientes;
+    private ServicioCitas servicioCitas;
     
     @Override
     public void init() throws ServletException {
         super.init();
         servicioProveedores = new ServicioProveedores();
         servicioClientes = new ServicioClientes();
+        servicioCitas = new ServicioCitas();
     }
 
     @Override
@@ -57,6 +61,7 @@ public class AccionesCliente extends HttpServlet {
         
         boolean esVerDetalle = request.getParameter("verDetalle") != null;
         boolean esPedirCita = request.getParameter("pedirCita") != null;
+        boolean esConfirmarCita = request.getParameter("confirmarCita") != null;
         boolean esEnviarMensaje = request.getParameter("verConversacion") != null;
         boolean esActualizar = request.getParameter("actualizar") != null;
         boolean esCrearPaciente = request.getParameter("crearPaciente") != null;
@@ -67,6 +72,8 @@ public class AccionesCliente extends HttpServlet {
           verDetalleProveedor(request, response);
         } else if (esPedirCita) {
           pedirCitaAProveedor(request, response);
+        } else if (esConfirmarCita) {
+          confirmarCitaConProveedor(request, response);
         } else if (esEnviarMensaje) {
           enviarMensajeAProveedor(request, response);
         } else if (esActualizar) {
@@ -103,7 +110,39 @@ public class AccionesCliente extends HttpServlet {
     }
     
     private void pedirCitaAProveedor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        HttpSession session = request.getSession();
+        try {
+            Cliente cliente = servicioClientes.buscarPorid(Parseador.aNumero(request.getParameter("idOrigen")));
+            Proveedor proveedor = servicioProveedores.buscarPorid(Parseador.aNumero(request.getParameter("idDestino")));
+            if(cliente != null && proveedor != null) {
+                session.setAttribute("cliente", cliente);
+                session.setAttribute("proveedor", proveedor);
+                response.sendRedirect(request.getContextPath() + "/babyplus/jsp/privado/cliente/solicitud.jsp");
+            } else {
+                throw new Exception("Forzando Salida");
+            }
+        } catch (Exception e) {
+            session.setAttribute("error", "error.generico");
+            response.sendRedirect(request.getParameter("origen"));
+        }
+    }
+    
+    private void confirmarCitaConProveedor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        HttpSession session = request.getSession();
+        try {
+            Solicitud solicitud = servicioCitas.crearSolicitud(request);
+            if(solicitud != null) {
+                session.setAttribute("mensaje", "cita.solicitud.creacion.ok");
+            } else {
+                throw new Exception("Forzando Salida");
+            }
+        } catch (Exception e) {
+            session.setAttribute("error", "error.generico");
+        }
+        
+        response.sendRedirect(request.getParameter("origen"));
     }
     
     private void enviarMensajeAProveedor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

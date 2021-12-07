@@ -67,7 +67,7 @@
                 <c:forEach var="servicio" items="${sessionScope.proveedor.servicios}">  
                 <tr>
                     <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/proveedor/accionesProveedor">
-                        <td>${servicio.servicio.descripcion}</td>
+                        <td><fmt:message key="servicio.nombre.${servicio.servicio.descripcion}"/></td>
                         <td><input type="number" min="0" id="precio" name="precio" required="true" value="${servicio.precio}"/></td>
                         <td><input type="text" id="descripcion" name="descripcion" maxlength="255" value="${servicio.descripcion}"/></td>
                         <td>
@@ -85,7 +85,7 @@
                         <td>
                             <select id="tipo" name="tipo" required="true">
                                 <c:forEach var="tipoCatalogo" items="${sessionScope.catalogoServicios}">
-                                    <option value="${tipoCatalogo.id}">${tipoCatalogo.descripcion}</option>
+                                    <option value="${tipoCatalogo.id}"><fmt:message key="servicio.nombre.${tipoCatalogo.descripcion}"/></option>
                                 </c:forEach>
                             </select>
                         </td>

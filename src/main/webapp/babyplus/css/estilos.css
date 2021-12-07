@@ -105,7 +105,7 @@ td>input:not([type=submit]), td>select {
 }
 
 
-.botonUnico {
+.botonUnico, .selectorUnico {
     width: 100%;
 }
 
