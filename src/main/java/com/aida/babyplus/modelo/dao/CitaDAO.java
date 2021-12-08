@@ -1,7 +1,6 @@
 package com.aida.babyplus.modelo.dao;
 
 import com.aida.babyplus.modelo.entidades.Cita;
-import com.aida.babyplus.modelo.entidades.Cliente;
 import com.aida.babyplus.modelo.entidades.EstadoCita;
 import com.aida.babyplus.modelo.entidades.EstadoSolicitud;
 import com.aida.babyplus.modelo.entidades.Solicitud;
@@ -10,7 +9,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

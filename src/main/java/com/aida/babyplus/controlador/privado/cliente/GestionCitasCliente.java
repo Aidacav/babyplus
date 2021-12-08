@@ -1,13 +1,10 @@
 package com.aida.babyplus.controlador.privado.cliente;
 
 import com.aida.babyplus.modelo.entidades.Cita;
-import com.aida.babyplus.modelo.entidades.Cliente;
 import com.aida.babyplus.modelo.entidades.Solicitud;
 import com.aida.babyplus.modelo.entidades.Usuario;
 import com.aida.babyplus.modelo.entidades.Valoracion;
 import com.aida.babyplus.servicio.ServicioCitas;
-import com.aida.babyplus.servicio.ServicioClientes;
-import com.aida.babyplus.servicio.ServicioProveedores;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
