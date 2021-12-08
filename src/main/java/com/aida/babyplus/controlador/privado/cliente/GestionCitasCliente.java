@@ -34,12 +34,13 @@ public class GestionCitasCliente extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
         HttpSession session = request.getSession();
 
         try {
             Usuario usuario = ((Usuario)session.getAttribute("usuario"));
             List<Solicitud> solicitudes = servicioCitas.buscarSolicitudesPorIdCliente(usuario.getId());
-            List<Cita> citas = servicioCitas.buscarCitasParaSolicitudes(solicitudes);
+            List<Cita> citas = servicioCitas.buscarCitasPorIdCliente(usuario.getId());
             session.setAttribute("solicitudes", solicitudes);
             session.setAttribute("citas", citas);
             response.sendRedirect(request.getContextPath() + "/babyplus/jsp/privado/cliente/citas.jsp");
@@ -51,6 +52,7 @@ public class GestionCitasCliente extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
         HttpSession session = request.getSession();
 
         try {

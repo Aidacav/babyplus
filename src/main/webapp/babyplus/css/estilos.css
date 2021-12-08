@@ -99,6 +99,10 @@ table, tr, th, td {
     border: 1px solid black;
 }
 
+th {
+    background-color: paleturquoise;
+}
+
 td>input:not([type=submit]), td>select {
     width: 98%;
 }

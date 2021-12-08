@@ -13,44 +13,47 @@
     <c:if test="${!empty sessionScope.citas}">
         <table>
             <tr>
-                <c:choose>
-                    <c:when test="${cita.estado.nombre == 'REALIZADA'}">
-                        <th colspan="6"><fmt:message key="cita.solicitud.cabecera.citas"/></th>
-                    </c:when>
-                    <c:otherwise>
-                        <th colspan="5"><fmt:message key="cita.solicitud.cabecera.citas"/></th>
-                    </c:otherwise>
-                </c:choose>
+                <th colspan="4"><fmt:message key="cita.solicitud.cabecera.citas"/></th>
+            </tr>
+            <tr>
+                <th><fmt:message key="cita.solicitud.cabecera.cliente.fecha"/></th>
+                <th><fmt:message key="cita.solicitud.cabecera.cliente.para"/></th>
+                <th><fmt:message key="cita.solicitud.cabecera.cliente.en"/></th>
+                <th><fmt:message key="cita.solicitud.cabecera.cliente.estado"/></th>
             </tr>
         <c:forEach var="cita" items="${sessionScope.citas}">
             <tr>
                 <td><fmt:formatDate pattern="${formatoFecha}" type="DATE" value="${cita.fecha}"/></td>
                 <td>${cita.solicitud.paciente.nombre}</td>
                 <td>${cita.solicitud.proveedor.razonSocial}</td>
-                <td>${cita.notas}</td>
-                <td><fmt:message key="cita.cita.estado.${cita.estado.nombre}"/></td>
-                <c:if test="${cita.estado.nombre == 'REALIZADA'}">
-                    <td>
-                        <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/gestionCitasCliente">
-                            <select id="chupetes" name="chupetes" required="true">
-                                <option value="0" selected="selected">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <input type="text" id="mensaje" name="mensaje" maxlength="255">
-                            <input type="hidden" id="idCita" name="idCita" value="${cita.id}">
-                            <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                            <input type="submit" value="<fmt:message key="cita.valoracion.boton"/>">
-                        </form>
-                    </td>
-                </c:if>
+                <c:choose>
+                    <c:when test="${cita.estado.nombre eq 'REALIZADA'}">
+                        <td>
+                            <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/gestionCitasCliente">
+                                <select id="chupetes" name="chupetes" required="true">
+                                    <option value="0" selected="selected">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                                <input type="text" id="mensaje" name="mensaje" maxlength="255">
+                                <input type="hidden" id="idCita" name="idCita" value="${cita.id}">
+                                <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
+                                <input type="submit" value="<fmt:message key="cita.valoracion.boton"/>">
+                            </form>
+                        </td>
+                    </c:when>
+                    <c:otherwise>
+                        <td><fmt:message key="cita.cita.estado.${cita.estado.nombre}"/></td>
+                    </c:otherwise>
+                </c:choose>
             </tr>
         </c:forEach>
         </table>
-        <% session.removeAttribute("citas"); %>    
+        <% session.removeAttribute("citas"); %>
+        <br>
     </c:if>
     
     <c:if test="${!empty sessionScope.solicitudes}">
@@ -58,11 +61,18 @@
             <tr>
                 <th colspan="5"><fmt:message key="cita.solicitud.cabecera.solicitudes"/></th>
             </tr>
+            <tr>
+                <th><fmt:message key="cita.solicitud.cabecera.cliente.para"/></th>
+                <th><fmt:message key="cita.solicitud.cabecera.cliente.en"/></th>
+                <th><fmt:message key="cita.solicitud.cabecera.cliente.servicio"/></th>
+                <th><fmt:message key="cita.solicitud.cabecera.cliente.fecha.solicitada"/></th>
+                <th><fmt:message key="cita.solicitud.cabecera.cliente.estado"/></th>
+            </tr>
         <c:forEach var="solicitud" items="${sessionScope.solicitudes}">
             <tr>
                 <td>${solicitud.paciente.nombre}</td>
                 <td>${solicitud.proveedor.razonSocial}</td>
-                <td>${solicitud.servicio.servicio.descripcion} (${solicitud.servicio.precio} &euro;)</td>
+                <td><fmt:message key="servicio.nombre.${solicitud.servicio.servicio.descripcion}"/> (${solicitud.servicio.precio} &euro;)</td>
                 <td><fmt:formatDate pattern="${formatoFecha}" type="DATE" value="${solicitud.fecha}"/></td>
                 <td><fmt:message key="cita.solicitud.estado.${solicitud.estado.nombre}"/></td>
             </tr>
