@@ -62,7 +62,10 @@ public class CitaDAO implements Serializable {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Solicitud> cq = cb.createQuery(Solicitud.class);
             Root<Solicitud> rt = cq.from(Solicitud.class);
-            List<String> estadosPermitidos = List.of("ENVIADA", "RECHAZADA");
+            List<String> estadosPermitidos = new LinkedList<String>(){{
+                add("ENVIADA");
+                add("RECHAZADA");
+            }};
             List<Predicate> predicados = new ArrayList<>();
             
             predicados.add(cb.equal(rt.get("cliente").get("usuario"), id));
