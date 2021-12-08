@@ -15,7 +15,7 @@
             <select id="servicio" name="servicio">
                 <option value="0" selected="selected"/>
                 <c:forEach var="tipoCatalogo" items="${sessionScope.catalogoServicios}">
-                    <option value="${tipoCatalogo.id}">${tipoCatalogo.descripcion}</option>
+                    <option value="${tipoCatalogo.id}"><fmt:message key="servicio.nombre.${tipoCatalogo.descripcion}"/></option>
                 </c:forEach>
             </select>
             <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
