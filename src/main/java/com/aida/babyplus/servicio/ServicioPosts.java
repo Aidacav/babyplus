@@ -39,7 +39,7 @@ public class ServicioPosts {
         String ambito = request.getParameter("ambito");
         
         Post nuevoPost = new Post();
-        nuevoPost.setAmbito(ambito.isBlank() ? null : ambito);
+        nuevoPost.setAmbito(ambito == null || ambito == "" ? null : ambito);
         nuevoPost.setFechaCreacion(Date.from(Instant.now()));
         nuevoPost.setFechaExpiracion(Parseador.aFecha(request.getParameter("fechaExpiracion")));
         nuevoPost.setPost(request.getParameter("post"));
