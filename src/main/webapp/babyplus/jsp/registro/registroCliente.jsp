@@ -6,7 +6,9 @@
 <div class="contenedor">
     <p>
         <form method="post" action="${pageContext.request.contextPath}/registrar">
-            <table>
+            <table class="table">
+                <thead class="table-info"></thead>
+                <tbody>
                 <tr>
                     <td><fmt:message key="cliente.nombre.usuario"/></td>
                     <td><input type="text" id="usuario" name="usuario" value="${sessionScope.cliente.usuario1.usuario}" required="true"/></td>
@@ -51,9 +53,10 @@
                 <tr>
                     <td colspan="2">
                         <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                        <input type="submit" class="botonUnico" name="registrarCliente" value="<fmt:message key="registro.registrar.cliente"/>">
+                        <input class="form-control btn btn-outline-primary" type="submit" name="registrarCliente" value="<fmt:message key="registro.registrar.cliente"/>">
                     </td>
                 </tr>
+                </tbody>
             </table>
         </form>
     </p>

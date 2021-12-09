@@ -9,11 +9,14 @@
             <fmt:message key="configuracion.formato.fecha.combo"/>
         </c:set>
         <p>
-            <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/proveedor/accionesProveedor">
-                <table>
+        <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/proveedor/accionesProveedor">
+            <table class="table">
+                <thead class="table-info">
                     <tr>
                         <th colspan="2"><fmt:message key="proveedor.gestion.cabecera.datos"/></th>
                     </tr>
+                </thead>
+                <tbody>
                     <tr>
                         <td><fmt:message key="proveedor.password"/></td>
                         <td><input type="password" id="password" name="password" required="true" value="${sessionScope.proveedor.usuario1.password}"/></td>
@@ -46,15 +49,17 @@
                         <td colspan="2">
                             <input type="hidden" id="id" name="id" value="${sessionScope.proveedor.usuario}">
                             <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                            <input type="submit" class="botonUnico" name="actualizar" value="<fmt:message key="boton.actualizar"/>">
+                            <input class="form-control btn btn-outline-primary" type="submit" name="actualizar" value="<fmt:message key="boton.actualizar"/>">
                         </td>
                     </tr>
-                </table>
-            </form>
-     
-            <br>
+                </tbody>
+            </table>
+        </form>
 
-            <table>
+        <br>
+
+        <table class="table">
+            <thead class="table-info">
                 <tr>
                     <th colspan="4"><fmt:message key="proveedor.gestion.cabecera.servicios"/></th>
                 </tr>
@@ -64,44 +69,47 @@
                     <th><fmt:message key="proveedor.gestion.servicio.descripcion"/></th>
                     <th><fmt:message key="proveedor.gestion.servicio.acciones"/></th>
                 </tr>
+            </thead>
+            <tbody>
                 <c:forEach var="servicio" items="${sessionScope.proveedor.servicios}">  
-                <tr>
-                    <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/proveedor/accionesProveedor">
-                        <td><fmt:message key="servicio.nombre.${servicio.servicio.descripcion}"/></td>
-                        <td><input type="number" min="0" id="precio" name="precio" required="true" value="${servicio.precio}"/></td>
-                        <td><input type="text" id="descripcion" name="descripcion" maxlength="255" value="${servicio.descripcion}"/></td>
-                        <td>
-                            <input type="hidden" id="idServicio" name="idServicio" value="${servicio.id}">
-                            <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                            <input type="hidden" id="tipo" name="tipo" value="${servicio.servicio.id}"/>
-                            <input type="submit" name="modificarServicio" value="<fmt:message key="boton.actualizar"/>">
-                            <input type="submit" name="eliminarServicio" value="<fmt:message key="boton.eliminar"/>">
-                        </td>
-                    </form>
+                    <tr>
+                <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/proveedor/accionesProveedor">
+                    <td><fmt:message key="servicio.nombre.${servicio.servicio.descripcion}"/></td>
+                    <td><input type="number" min="0" id="precio" name="precio" required="true" value="${servicio.precio}"/></td>
+                    <td><input type="text" id="descripcion" name="descripcion" maxlength="255" value="${servicio.descripcion}"/></td>
+                    <td>
+                        <input type="hidden" id="idServicio" name="idServicio" value="${servicio.id}">
+                        <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
+                        <input type="hidden" id="tipo" name="tipo" value="${servicio.servicio.id}"/>
+                        <input class="btn btn-outline-primary" type="submit" name="modificarServicio" value="<fmt:message key="boton.actualizar"/>">
+                        <input class="btn btn-outline-primary" type="submit" name="eliminarServicio" value="<fmt:message key="boton.eliminar"/>">
+                    </td>
+                </form>
                 </tr>
-                </c:forEach>
-                <tr>
-                    <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/proveedor/accionesProveedor">
-                        <td>
-                            <select id="tipo" name="tipo" required="true">
-                                <c:forEach var="tipoCatalogo" items="${sessionScope.catalogoServicios}">
-                                    <option value="${tipoCatalogo.id}"><fmt:message key="servicio.nombre.${tipoCatalogo.descripcion}"/></option>
-                                </c:forEach>
-                            </select>
-                        </td>
-                        <td><input type="number" min="0" id="precio" name="precio" required="true"/></td>
-                        <td><input type="text" id="descripcion" name="descripcion" maxlength="255"/></td>
-                        <td>
-                            <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                            <input type="submit" class="botonUnico" name="crearServicio" value="<fmt:message key="boton.añadir"/>">
-                        </td>
-                    </form>
-                </tr>
-            </table>
-            <% session.removeAttribute("proveedor"); %>
-        </p>
-    </c:if>
-    <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/mensajes.jsp"/>
+            </c:forEach>
+            <tr>
+            <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/proveedor/accionesProveedor">
+                <td>
+                    <select id="tipo" name="tipo" required="true">
+                        <c:forEach var="tipoCatalogo" items="${sessionScope.catalogoServicios}">
+                            <option value="${tipoCatalogo.id}"><fmt:message key="servicio.nombre.${tipoCatalogo.descripcion}"/></option>
+                        </c:forEach>
+                    </select>
+                </td>
+                <td><input type="number" min="0" id="precio" name="precio" required="true"/></td>
+                <td><input type="text" id="descripcion" name="descripcion" maxlength="255"/></td>
+                <td>
+                    <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
+                    <input class="form-control btn btn-outline-primary" type="submit" name="crearServicio" value="<fmt:message key="boton.añadir"/>">
+                </td>
+            </form>
+            </tr>
+            </tbody>
+        </table>
+        <% session.removeAttribute("proveedor");%>
+    </p>
+</c:if>
+<jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/mensajes.jsp"/>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/plantillaInferior.jsp"/>
 

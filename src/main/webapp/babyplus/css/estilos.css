@@ -31,7 +31,7 @@ footer {
     float: left;
     clear:both;
     width: 100vw;
-    height: 12vh;
+    height: 13vh;
     text-align: center;
     background-color: paleturquoise;
     color: grey;
@@ -44,19 +44,19 @@ footer {
     height: 20px;
 }
 
-.topnav {
+.navbar {
     width: 100vw;
     background-color: #333;
     position: fixed;
-    top: 20vh;
+    top: 16vh;
 }
 
-.topnav a:hover {
+.navbar a:hover {
     background-color: paleturquoise;
     color: black;
 }
 
-#links {
+.links {
     color: #E74C3C;
 }
 
@@ -77,39 +77,11 @@ footer {
     font-size: 20px;
 }
 
-.opcion {
-    float: left;
-    width: 15vw;
-    margin: 10px;
-    border-radius: 25px;
-}
 
-.opcion:hover {
-    background-color: paleturquoise;
-}
-
-table {
+.table {
     width: 90vw;
     margin-left: auto;
     margin-right: auto;
-    border-collapse: collapse;
-}
-
-table, tr, th, td {
-    border: 1px solid black;
-}
-
-th {
-    background-color: paleturquoise;
-}
-
-td>input:not([type=submit]), td>select {
-    width: 98%;
-}
-
-
-.botonUnico, .selectorUnico {
-    width: 100%;
 }
 
 textarea {
@@ -129,10 +101,6 @@ textarea {
 .derecha {
     float: right;
     width: 50%;
-}
-
-.izquierda table {
-    width: 40vw;
 }
 
 .izquierda a {
@@ -155,6 +123,10 @@ textarea {
     width: 100vw;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+.mensajeRedimensionado {
+    width: 45vw;
 }
 
 .mensajeIzquierda {

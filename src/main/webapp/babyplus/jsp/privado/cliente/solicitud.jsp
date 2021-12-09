@@ -5,12 +5,14 @@
 <fmt:setBundle basename="mensajes"/>
 <div class="contenedor">
     <p>
-        <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/accionesCliente">
-            <table>
+    <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/accionesCliente">
+        <table class="table">
+            <thead class="table-info"></thead>
+            <tbody>
                 <tr>
                     <td><fmt:message key="cita.solicitud.hijo"/></td>
                     <td>
-                        <select class="selectorUnico" id="idPaciente" name="idPaciente" required="true">
+                        <select class="form-select" id="idPaciente" name="idPaciente" required="true">
                             <c:forEach var="paciente" items="${sessionScope.cliente.hijos}">
                                 <option value="${paciente.id}">${paciente.nombre}</option>
                             </c:forEach>
@@ -20,7 +22,7 @@
                 <tr>
                     <td><fmt:message key="cita.solicitud.servicio"/></td>
                     <td>
-                        <select class="selectorUnico" id="idServicio" name="idServicio" required="true">
+                        <select class="form-select" id="idServicio" name="idServicio" required="true">
                             <c:forEach var="servicio" items="${sessionScope.proveedor.servicios}">
                                 <option value="${servicio.id}"><fmt:message key="servicio.nombre.${servicio.servicio.descripcion}"/> (${servicio.precio} &euro;)</option>
                             </c:forEach>
@@ -40,13 +42,14 @@
                         <input type="hidden" id="idCliente" name="idCliente" value="${sessionScope.cliente.usuario}">
                         <input type="hidden" id="idProveedor" name="idProveedor" value="${sessionScope.proveedor.usuario}">
                         <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                        <input type="submit" class="botonUnico" name="confirmarCita" value="<fmt:message key="boton.solicitar"/>">
+                        <input class="form-control btn btn-outline-primary" type="submit" name="confirmarCita" value="<fmt:message key="boton.solicitar"/>">
                     </td>
                 </tr>
-            </table>
-        </form>
-        <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/mensajes.jsp"/>
-    </p>
+            </tbody>
+        </table>
+    </form>
+    <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/mensajes.jsp"/>
+</p>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/plantillaInferior.jsp"/>
 

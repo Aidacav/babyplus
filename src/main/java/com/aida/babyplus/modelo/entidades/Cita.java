@@ -23,7 +23,7 @@ import javax.validation.constraints.Size;
  * @author Aida
  */
 @Entity
-@Table(name = "cita")
+@Table(name = "CITA")
 public class Cita implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "cita1")

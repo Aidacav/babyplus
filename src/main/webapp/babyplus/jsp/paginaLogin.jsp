@@ -12,12 +12,12 @@
                 <input type="text" id="login" name="login"><br>
                 <label for="password"><fmt:message key="login.label.password"/></label><br>
                 <input type="password" id="password" name="password"><br><br>
-                <input type="submit" value="<fmt:message key="login.button"/>">
+                <input class="btn btn-outline-primary" type="submit" value="<fmt:message key="login.button"/>">
             </form>
         </p>
         <p>
             <center>
-                <a id="links" href="${pageContext.request.contextPath}/babyplus/jsp/registro/seleccionRegistro.jsp"><fmt:message key="registro.registrar"/></a>
+                <a class="links" href="${pageContext.request.contextPath}/babyplus/jsp/registro/seleccionRegistro.jsp"><fmt:message key="registro.registrar"/></a>
             </center>
         </p>
         <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/mensajes.jsp"/>

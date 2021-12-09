@@ -6,7 +6,9 @@
 <div class="contenedor">
     <c:if test="${!empty sessionScope.historico}">
         <p>
-            <table>
+        <table class="table">
+            <thead class="table-info"></thead>
+            <tbody>
                 <c:forEach var="mensaje" items="${sessionScope.historico}">
                     <tr>
                         <td>${mensaje.value}</td>
@@ -14,15 +16,16 @@
                             <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/gestorMensajes">
                                 <input type="hidden" id="idDestino" name="idDestino" value="${mensaje.key}">
                                 <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                                <input type="submit" class="botonUnico" name="verConversacion" value="<fmt:message key="mensajes.boton.ver.conversacion"/>">
+                                <input class="form-control btn btn-outline-primary" type="submit" name="verConversacion" value="<fmt:message key="mensajes.boton.ver.conversacion"/>">
                             </form>
                         </td>
                     </tr>
                 </c:forEach>
-            </table>
-            <% session.removeAttribute("historico"); %>
-        </p>
-    </c:if>
+            </tbody>
+        </table>
+        <% session.removeAttribute("historico");%>
+    </p>
+</c:if>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/plantillaInferior.jsp"/>
 

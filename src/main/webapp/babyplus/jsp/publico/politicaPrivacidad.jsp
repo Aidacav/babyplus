@@ -4,13 +4,7 @@
 <fmt:setLocale value="${sessionScope.idioma}"/>
 <fmt:setBundle basename="mensajes"/>
 <div class="contenedor">
-    <center>
-        <br>
-        <p>
-            <a class="links" href="${pageContext.request.contextPath}/babyplus/jsp/registro/registroCliente.jsp"><fmt:message key="registro.registrar.cliente"/></a>
-            <a class="links" href="${pageContext.request.contextPath}/babyplus/jsp/registro/registroProveedor.jsp"><fmt:message key="registro.registrar.proveedor"/></a>
-        </p>
-    </center>
+    <!-- TODO: Insertar Contenido Página aquí -->
 </div>
 <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/plantillaInferior.jsp"/>
 

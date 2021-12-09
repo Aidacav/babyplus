@@ -9,8 +9,10 @@
             <fmt:message key="configuracion.formato.fecha.combo"/>
         </c:set>
         <p>
-            <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/admin/administrarProveedor">
-                <table>
+        <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/admin/administrarProveedor">
+            <table class="table">
+                <thead class="table-info"></thead>
+                <tbody>
                     <tr>
                         <td><fmt:message key="proveedor.id"/></td>
                         <td><input type="number" value="${sessionScope.proveedor.usuario}" disabled="disabled"/></td>
@@ -51,15 +53,16 @@
                         <td colspan="2">
                             <input type="hidden" id="id" name="id" value="${sessionScope.proveedor.usuario}">
                             <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                            <input type="submit" name="actualizar" value="<fmt:message key="administrador.gestion.proveedores.boton.actualizar"/>">
+                            <input class="btn btn-outline-primary" type="submit" name="actualizar" value="<fmt:message key="administrador.gestion.proveedores.boton.actualizar"/>">
                         </td>
                     </tr>
-                </table>
-            </form>
-            <% session.removeAttribute("proveedor"); %>
-        </p>
-    </c:if>
-    <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/mensajes.jsp"/>
+                </tbody>
+            </table>
+        </form>
+        <% session.removeAttribute("proveedor");%>
+    </p>
+</c:if>
+<jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/mensajes.jsp"/>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/plantillaInferior.jsp"/>
 

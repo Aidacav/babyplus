@@ -20,6 +20,7 @@ public class ServicioProveedores {
     
     private final ProveedorDAO proveedorDAO = new ProveedorDAO();
     private final ServicioDAO servicioDAO = new ServicioDAO();
+    private final ServicioPosts servicioPosts = new ServicioPosts();
     
     public Proveedor buscarPorid(Integer id) {
         if(id == null) {
@@ -53,7 +54,11 @@ public class ServicioProveedores {
         nuevoProveedor.setUsuario1(nuevoUsuario);
         nuevoProveedor.setLogo(logo);
         
-        return proveedorDAO.guardar(nuevoProveedor);
+        Proveedor proveedorGuardado = proveedorDAO.guardar(nuevoProveedor);
+        
+        servicioPosts.postearNuevoProveedor(proveedorGuardado.getRazonSocial());
+        
+        return proveedorGuardado;
     }
     
     public List<Proveedor> buscarPorCriteriosCliente(HttpServletRequest request) {

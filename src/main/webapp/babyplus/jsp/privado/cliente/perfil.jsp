@@ -9,11 +9,14 @@
             <fmt:message key="configuracion.formato.fecha.combo"/>
         </c:set>
         <p>
-            <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/accionesCliente">
-                <table>
+        <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/accionesCliente">
+            <table class="table">
+                <thead class="table-info">
                     <tr>
                         <th colspan="2"><fmt:message key="cliente.gestion.cabecera.datos"/></th>
                     </tr>
+                </thead>
+                <tbody>
                     <tr>
                         <td><fmt:message key="cliente.password"/></td>
                         <td><input type="password" id="password" name="password" required="true" value="${sessionScope.cliente.usuario1.password}"/></td>
@@ -46,15 +49,17 @@
                         <td colspan="2">
                             <input type="hidden" id="id" name="id" value="${sessionScope.cliente.usuario}">
                             <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                            <input type="submit" class="botonUnico" name="actualizar" value="<fmt:message key="boton.actualizar"/>">
+                            <input class="form-control btn btn-outline-primaryl" type="submit" name="actualizar" value="<fmt:message key="boton.actualizar"/>">
                         </td>
                     </tr>
-                </table>
-            </form>
-     
-            <br>
+                </tbody>
+            </table>
+        </form>
 
-            <table>
+        <br>
+
+        <table class="table">
+            <thead class="table-info">
                 <tr>
                     <th colspan="4"><fmt:message key="cliente.gestion.cabecera.hijos"/></th>
                 </tr>
@@ -64,37 +69,40 @@
                     <th><fmt:message key="cliente.gestion.hijo.observaciones"/></th>
                     <th><fmt:message key="cliente.gestion.hijo.acciones"/></th>
                 </tr>
+            </thead>
+            <tbody>
                 <c:forEach var="hijo" items="${sessionScope.cliente.hijos}">  
-                <tr>
-                    <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/accionesCliente">
-                        <td><input type="text" id="nombre" name="nombre" required="true" value="${hijo.nombre}"/></td>
-                        <td><input type="date" id="fechaNacimiento" name="fechaNacimiento" required="true" value="<fmt:formatDate pattern="${formatoFecha}" type="DATE" value="${hijo.fechaNacimiento}"/>"/></td>
-                        <td><input type="text" id="observaciones" name="observaciones" maxlength="300" value="${hijo.observaciones}"/></td>
-                        <td>
-                            <input type="hidden" id="idPaciente" name="idPaciente" value="${hijo.id}">
-                            <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                            <input type="submit" name="modificarPaciente" value="<fmt:message key="boton.actualizar"/>">
-                            <input type="submit" name="eliminarPaciente" value="<fmt:message key="boton.eliminar"/>">
-                        </td>
-                    </form>
+                    <tr>
+                <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/accionesCliente">
+                    <td><input type="text" id="nombre" name="nombre" required="true" value="${hijo.nombre}"/></td>
+                    <td><input type="date" id="fechaNacimiento" name="fechaNacimiento" required="true" value="<fmt:formatDate pattern="${formatoFecha}" type="DATE" value="${hijo.fechaNacimiento}"/>"/></td>
+                    <td><input type="text" id="observaciones" name="observaciones" maxlength="300" value="${hijo.observaciones}"/></td>
+                    <td>
+                        <input type="hidden" id="idPaciente" name="idPaciente" value="${hijo.id}">
+                        <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
+                        <input class="btn btn-outline-primary" type="submit" name="modificarPaciente" value="<fmt:message key="boton.actualizar"/>">
+                        <input class="btn btn-outline-primary" type="submit" name="eliminarPaciente" value="<fmt:message key="boton.eliminar"/>">
+                    </td>
+                </form>
                 </tr>
-                </c:forEach>
-                <tr>
-                    <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/accionesCliente">
-                        <td><input type="text" id="nombre" name="nombre" required="true" value="${hijo.nombre}"/></td>
-                        <td><input type="date" id="fechaNacimiento" name="fechaNacimiento" required="true" value="<fmt:formatDate pattern="${formatoFecha}" type="DATE" value="${hijo.fechaNacimiento}"/>"/></td>
-                        <td><input type="text" id="observaciones" name="observaciones" maxlength="300" value="${hijo.observaciones}"/></td>
-                        <td>
-                            <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                            <input type="submit" class="botonUnico" name="crearPaciente" value="<fmt:message key="boton.añadir"/>">
-                        </td>
-                    </form>
-                </tr>
-            </table>
-            <% session.removeAttribute("cliente"); %>
-        </p>
-    </c:if>
-    <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/mensajes.jsp"/>
+            </c:forEach>
+            <tr>
+            <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/accionesCliente">
+                <td><input type="text" id="nombre" name="nombre" required="true" value="${hijo.nombre}"/></td>
+                <td><input type="date" id="fechaNacimiento" name="fechaNacimiento" required="true" value="<fmt:formatDate pattern="${formatoFecha}" type="DATE" value="${hijo.fechaNacimiento}"/>"/></td>
+                <td><input type="text" id="observaciones" name="observaciones" maxlength="300" value="${hijo.observaciones}"/></td>
+                <td>
+                    <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
+                    <input class="form-control btn btn-outline-primary" type="submit" name="crearPaciente" value="<fmt:message key="boton.añadir"/>">
+                </td>
+            </form>
+            </tr>
+            </tbody>
+        </table>
+        <% session.removeAttribute("cliente");%>
+    </p>
+</c:if>
+<jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/mensajes.jsp"/>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/plantillaInferior.jsp"/>
 

@@ -19,7 +19,7 @@
                 <option value="0"><fmt:message key="buscador.clientes.estado.deshabilitado"/></option>
             </select>
             <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-            <input type="submit" value="<fmt:message key="buscador.clientes.boton.buscar"/>">
+            <input class="btn btn-outline-primary" type="submit" value="<fmt:message key="buscador.clientes.boton.buscar"/>">
         </form>
     </center>
 </p>

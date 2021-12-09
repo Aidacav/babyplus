@@ -5,8 +5,10 @@
 <fmt:setBundle basename="mensajes"/>
 <div class="contenedor">
     <p>
-        <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/accionesCliente/renovarSubscripcion">
-            <table>
+    <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/accionesCliente/renovarSubscripcion">
+        <table class="table">
+            <thead class="table-info"></thead>
+            <tbody>
                 <tr>
                     <td><fmt:message key="subscricion.tarjeta"/></td>
                     <td><input type="number" id="tarjeta" name="tarjeta" min="1000000000000000" max="9999999999999999" required="true"/></td>
@@ -59,13 +61,14 @@
                         <input type="hidden" id="PENDIENTE" name="PENDIENTE" value="true">
                         <input type="hidden" id="idCliente" name="idCliente" value="${sessionScope.usuario.id}">
                         <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                        <input type="submit" value="<fmt:message key="subscricion.contratar"/>">
+                        <input class="btn btn-outline-primary" type="submit" value="<fmt:message key="subscricion.contratar"/>">
                     </td>
                 </tr>
-            </table>
-        </form>
-    </p>
-    <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/mensajes.jsp"/>
+            </tbody>
+        </table>
+    </form>
+</p>
+<jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/mensajes.jsp"/>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/plantillaInferior.jsp"/>
 

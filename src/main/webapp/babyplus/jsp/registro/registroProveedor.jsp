@@ -5,8 +5,10 @@
 <fmt:setBundle basename="mensajes"/>
 <div class="contenedor">
     <p>
-        <form method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/registrar">
-            <table>
+    <form method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/registrar">
+        <table class="table">
+            <thead class="table-info"></thead>
+            <tbody>
                 <tr>
                     <td><fmt:message key="proveedor.nombre.usuario"/></td>
                     <td><input type="text" id="usuario" name="usuario" value="${sessionScope.cliente.usuario1.usuario}" required="true"/></td>
@@ -55,13 +57,14 @@
                 <tr>
                     <td colspan="2">
                         <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                        <input type="submit" class="botonUnico" name="registrarProveedor" value="<fmt:message key="registro.registrar.proveedor"/>">
+                        <input class="form-control btn btn-outline-primary" type="submit" name="registrarProveedor" value="<fmt:message key="registro.registrar.proveedor"/>">
                     </td>
                 </tr>
-            </table>
-        </form>
-    </p>
-    <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/mensajes.jsp"/>
+            </tbody>
+        </table>
+    </form>
+</p>
+<jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/mensajes.jsp"/>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/plantillaInferior.jsp"/>
 

@@ -17,9 +17,9 @@
                 <c:forEach var="tipoCatalogo" items="${sessionScope.catalogoServicios}">
                     <option value="${tipoCatalogo.id}"><fmt:message key="servicio.nombre.${tipoCatalogo.descripcion}"/></option>
                 </c:forEach>
-            </select>
+                </select>
             <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-            <input type="submit" value="<fmt:message key="cliente.buscador.boton"/>">
+            <input class="btn btn-outline-primary" type="submit" value="<fmt:message key="cliente.buscador.boton"/>">
         </form>
     </center>
 </p>
