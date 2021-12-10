@@ -7,14 +7,14 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Baby+</title>
+        <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/babyplus/imagenes/favicon.ico">
         <mvc:resources mapping="/webjars/**" location="/webjars/"/>
         <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
         <script src="/webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css" />
         <link href="${pageContext.request.contextPath}/babyplus/css/estilos.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.request.contextPath}/babyplus/imagenes/favicon_1.ico?" rel="shortcut icon" type="image/x-icon"/>
-        <title>Baby+</title>
     </head>
 
     <div class="header">
