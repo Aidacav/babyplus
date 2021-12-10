@@ -32,6 +32,18 @@ public final class Parseador {
         return null;
     }
     
+    public static final Long aNumeroGrande(String valor) {
+        if(valor == null || valor.equals("null")) {
+            return null;
+        }
+        try {
+            return Long.valueOf(valor);
+        } catch (NumberFormatException e) {
+            // No es parseable
+        }
+        return null;
+    }
+    
     public static final String aLike(String valor) {
         if(valor == null || valor.equals("null")) {
             return null;

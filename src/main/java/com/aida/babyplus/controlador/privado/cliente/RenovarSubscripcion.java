@@ -33,7 +33,7 @@ public class RenovarSubscripcion extends HttpServlet {
         HttpSession session = request.getSession();
         
         try {
-            if(servicioPagos.tarjetaValida(request.getParameter("tarjeta"))) {
+            if(!servicioPagos.tarjetaValida(request.getParameter("tarjeta"))) {
                 session.setAttribute("error", "subscricion.contratar.error.tarjeta");
                 response.sendRedirect(request.getParameter("origen"));
             } else if(servicioClientes.renovarSubscripcion(request)) {

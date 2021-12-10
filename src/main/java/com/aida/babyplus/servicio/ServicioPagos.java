@@ -10,7 +10,7 @@ public class ServicioPagos {
     
     // Devolvera true si la tarjeta es par, false si no
     public boolean tarjetaValida(String numeroTarjeta) {
-        Integer tarjeta = Parseador.aNumero(numeroTarjeta);
+        Long tarjeta = Parseador.aNumeroGrande(numeroTarjeta);
         return tarjeta != null && tarjeta % 2 == 0;
     }
 }
