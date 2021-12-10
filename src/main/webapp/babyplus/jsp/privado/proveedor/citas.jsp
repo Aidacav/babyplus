@@ -30,24 +30,6 @@
                         <td><fmt:formatDate pattern="${formatoFecha}" type="DATE" value="${cita.fecha}"/></td>
                         <c:choose>
                             <c:when test="${cita.estado.nombre eq 'REALIZADA'}">
-                                <td>
-                                    <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/gestionCitasCliente">
-                                        <select id="chupetes" name="chupetes" required="true" class="form-select">
-                                            <option value="0" selected="selected">0</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                        <input type="text" id="mensaje" name="mensaje" maxlength="255" class="form-control">
-                                        <input type="hidden" id="idCita" name="idCita" value="${cita.id}">
-                                        <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
-                                        <input class="btn btn-outline-primary" type="submit" value="<fmt:message key="cita.valoracion.boton"/>" class="form-control btn btn-outline-primary">
-                                    </form>
-                                </td>
-                            </c:when>
-                            <c:when test="${cita.estado.nombre eq 'REALIZADA'}">
                                 <td class="bg-success"><fmt:message key="cita.cita.estado.${cita.estado.nombre}"/></td>                        
                             </c:when>
                             <c:when test="${cita.estado.nombre eq 'NO_REALIZADA'}">

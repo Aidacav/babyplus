@@ -58,7 +58,9 @@ public class UsuarioCliente implements Filter {
                 httpServletRequest.getSession().removeAttribute(SUBSCRIPCION_PENDIENTE);
                 chain.doFilter(request, response);
             } else {
-                httpServletRequest.getSession().setAttribute("error", "subscricion.mensaje");
+                if(httpServletRequest.getSession().getAttribute("error") == null) {
+                    httpServletRequest.getSession().setAttribute("error", "subscricion.mensaje");
+                }
                 httpServletRequest.getSession().setAttribute(SUBSCRIPCION_PENDIENTE, "true");
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/babyplus/jsp/privado/cliente/renovarSubscripcion.jsp");
             }
