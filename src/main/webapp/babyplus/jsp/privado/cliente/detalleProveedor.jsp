@@ -5,7 +5,7 @@
 <fmt:setBundle basename="mensajes"/>
 <div class="contenedor">
     <c:if test="${!empty sessionScope.proveedor}">
-        <p>
+    <p>
         <form method="post" action="${pageContext.request.contextPath}/babyplus/jsp/privado/cliente/accionesCliente">
             <table class="table">
                 <thead class="table-info"></thead>
@@ -58,7 +58,35 @@
         <% session.removeAttribute("proveedor"); %>
         <% session.removeAttribute("logo");%>
     </p>
-</c:if>
+    </c:if>
+    <c:if test="${!empty sessionScope.valoraciones}">
+    <c:set var = "formatoFecha" scope = "session">
+        <fmt:message key="configuracion.formato.fecha.combo"/>
+    </c:set>
+    <p>
+        <table class="table">
+            <thead class="table-info">
+                <th><fmt:message key="valoracion.fecha"/></th>
+                <th><fmt:message key="valoracion.chupetes"/></th>
+                <th><fmt:message key="valoracion.comentario"/></th>
+            </thead>
+            <tbody>
+                <c:forEach var="valoracion" items="${sessionScope.valoraciones}">
+                    <tr>
+                        <td><fmt:formatDate pattern="${formatoFecha}" type="DATE" value="${valoracion.fecha}"/></td>
+                        <td>
+                            <c:forEach begin="1" end="${valoracion.chupetes}" varStatus="loop">
+                                <img class="icono" src="${pageContext.request.contextPath}/babyplus/imagenes/chupete.png"/>
+                            </c:forEach>
+                        </td>
+                        <td>${valoracion.mensaje}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+        <% session.removeAttribute("valoraciones"); %>
+    </p>
+    </c:if>
 <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/mensajes.jsp"/>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/babyplus/jsp/plantillaInferior.jsp"/>

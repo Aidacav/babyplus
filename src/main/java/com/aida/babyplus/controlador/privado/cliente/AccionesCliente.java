@@ -4,12 +4,15 @@ import com.aida.babyplus.modelo.entidades.Cliente;
 import com.aida.babyplus.modelo.entidades.Proveedor;
 import com.aida.babyplus.modelo.entidades.Solicitud;
 import com.aida.babyplus.modelo.entidades.Usuario;
+import com.aida.babyplus.modelo.entidades.Valoracion;
 import com.aida.babyplus.servicio.ServicioCitas;
 import com.aida.babyplus.servicio.ServicioClientes;
 import com.aida.babyplus.servicio.ServicioProveedores;
+import com.aida.babyplus.servicio.ServicioValoraciones;
 import com.aida.babyplus.util.Parseador;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,6 +30,7 @@ public class AccionesCliente extends HttpServlet {
     private ServicioProveedores servicioProveedores;
     private ServicioClientes servicioClientes;
     private ServicioCitas servicioCitas;
+    private ServicioValoraciones servicioValoraciones;
     
     @Override
     public void init() throws ServletException {
@@ -34,6 +38,7 @@ public class AccionesCliente extends HttpServlet {
         servicioProveedores = new ServicioProveedores();
         servicioClientes = new ServicioClientes();
         servicioCitas = new ServicioCitas();
+        servicioValoraciones = new ServicioValoraciones();
     }
 
     @Override
@@ -97,8 +102,10 @@ public class AccionesCliente extends HttpServlet {
         try {
             Proveedor proveedor = servicioProveedores.buscarPorid(idProveedor);
             if (proveedor != null) {
+                List<Valoracion> valoraciones = servicioValoraciones.buscarValoracionesDeProveedor(idProveedor);
                 session.setAttribute("proveedor", proveedor);
                 session.setAttribute("logo", Base64.encode(proveedor.getLogo()));
+                session.setAttribute("valoraciones", valoraciones);
                 response.sendRedirect(request.getContextPath() + "/babyplus/jsp/privado/cliente/detalleProveedor.jsp");
             } else {
                 throw new Exception("Forzando salida");
