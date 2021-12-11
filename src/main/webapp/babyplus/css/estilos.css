@@ -22,12 +22,12 @@ html, body{
     float: left;
     clear: both;
     height: 63vh;
-    width: 100vw;    
+    width: 100vw;
     overflow-x: hidden;
     overflow-y: auto;
 }
 
-footer { 
+footer {
     float: left;
     clear:both;
     width: 100vw;
@@ -104,10 +104,10 @@ textarea {
 }
 
 .izquierda a {
-     float: left;
-     margin-left: 20px;
-     color: #f2f2f2;
-     text-decoration: none;
+    float: left;
+    margin-left: 20px;
+    color: #f2f2f2;
+    text-decoration: none;
 }
 
 .derecha a {
@@ -153,4 +153,23 @@ textarea {
     margin-right: 5px;
     padding: 10px;
     background-color: #99ffcc;
+}
+
+.carousel, .carousel-inner, .carousel-item {
+    width: 80vw;
+    height: 40vh;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: paleturquoise;
+}
+
+.carousel-item > img {
+    width: 30vw;
+    height: 40vh;
+}
+
+.carousel-caption, .carousel-caption > h5, .carousel-caption > p {
+    display: block;
+    clear: both;
+    float: right;
 }

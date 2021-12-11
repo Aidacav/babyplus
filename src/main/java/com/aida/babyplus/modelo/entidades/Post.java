@@ -38,7 +38,7 @@ public class Post implements Serializable {
     @Column(name = "FECHA_EXPIRACION")
     @Temporal(TemporalType.DATE)
     private Date fechaExpiracion;
-    @Size(max = 255)
+    @Size(max = 50)
     @Column(name = "POST")
     private String post;
 

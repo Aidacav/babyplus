@@ -31,7 +31,7 @@ public class Proveedor implements Serializable {
     private Integer usuario;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 20)
     @Column(name = "RAZON_SOCIAL")
     private String razonSocial;
     @Basic(optional = false)

@@ -14,6 +14,7 @@ import com.aida.babyplus.servicio.ServicioPosts;
 import com.aida.babyplus.servicio.ServicioProveedores;
 import com.aida.babyplus.servicio.TipoUsuario;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.annotation.WebServlet;
 
 /**
@@ -48,7 +49,7 @@ public class Login extends HttpServlet {
             if (session != null) {
                 if (usuario != null) {
                     List<Servicio> catalogoServicios = servicioProveedores.buscarListadoServicios();
-                    List<Post> ultimosPosts = servicioPosts.buscarUltimosParaRol(usuario.getRol().getDescripcion());
+                    Map<Post, Integer> ultimosPosts = servicioPosts.buscarUltimosParaRol(usuario.getRol().getDescripcion());
                     session.setAttribute("catalogoServicios", catalogoServicios);
                     session.setAttribute("usuario", usuario);
                     session.setAttribute("posts", ultimosPosts);

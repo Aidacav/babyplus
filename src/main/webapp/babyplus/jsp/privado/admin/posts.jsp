@@ -34,22 +34,13 @@
                 <input type="date" id="fechaExpiracion" name="fechaExpiracion">
             </td>
             <td>
-                <textarea class="mensajeRedimensionado" id="post" name="post" minlength="1" maxlength="255" required="true"></textarea>
+                <input type="text" id="post" name="post" minlength="1" maxlength="50" required="true">
             </td>
             <td>
                 <input type="hidden" id="origen" name="origen" value="${pageContext.request.requestURI}">
                 <input class="form-control btn btn-outline-primary" type="submit" value="<fmt:message key="administrador.gestion.posts.boton.publicar"/>">
             </td>
         </form>
-        <script>
-            function cambiarEnviar(ev) {
-                this.style.height = '24px';
-                this.style.height = this.scrollHeight + 12 + 'px';
-            }
-
-            var mensaje = document.querySelector('textarea');
-            mensaje.addEventListener('input', cambiarEnviar);
-        </script>
         </tr>
         <c:forEach var="post" items="${sessionScope.posts}">
             <tr>
