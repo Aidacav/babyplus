@@ -1,28 +1,15 @@
 package com.aida.babyplus.modelo.dao;
 
-import com.aida.babyplus.modelo.entidades.Cita;
-import com.aida.babyplus.modelo.entidades.EstadoCita;
-import com.aida.babyplus.modelo.entidades.EstadoSolicitud;
-import com.aida.babyplus.modelo.entidades.Post;
-import com.aida.babyplus.modelo.entidades.Solicitud;
 import com.aida.babyplus.modelo.entidades.Valoracion;
 import java.io.Serializable;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.persistence.Tuple;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**

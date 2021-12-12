@@ -12,7 +12,6 @@ import com.aida.babyplus.modelo.entidades.Usuario;
 import com.aida.babyplus.servicio.ServicioLogin;
 import com.aida.babyplus.servicio.ServicioPosts;
 import com.aida.babyplus.servicio.ServicioProveedores;
-import com.aida.babyplus.servicio.TipoUsuario;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.annotation.WebServlet;

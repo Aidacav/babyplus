@@ -1,10 +1,6 @@
 package com.aida.babyplus.modelo.dao;
 
-import com.aida.babyplus.modelo.entidades.Mensaje;
 import com.aida.babyplus.modelo.entidades.Post;
-import com.aida.babyplus.modelo.entidades.Servicio;
-import com.aida.babyplus.servicio.TipoUsuario;
-import com.aida.babyplus.util.Parseador;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
